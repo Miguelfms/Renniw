@@ -1,0 +1,7 @@
+RENniw PWA
+
+Esta pasta contém a versão instalável do Renniw. Publique TODOS os arquivos mantendo a estrutura de pastas em um host HTTPS (por exemplo, GitHub Pages ou Vercel). Depois abra o endereço no Chrome do Android e escolha “Instalar app” ou “Adicionar à tela inicial”.
+
+Os dados atuais continuam no armazenamento local do navegador (localStorage, chave renniw:dados). Eles não são sincronizados automaticamente entre aparelhos. Antes de limpar os dados do navegador ou trocar de aparelho, faça uma cópia/backup se o app oferecer essa função.
+
+O modo offline guarda a estrutura principal do app depois da primeira visita online. Recursos externos, como fontes do Google, podem não carregar sem internet.
