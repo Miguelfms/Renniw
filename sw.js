@@ -1,22 +1,13 @@
-const CACHE = 'renniw-pwa-v1';
-const CORE = ['./', './index.html', './manifest.webmanifest', './icons/renniw-192.png', './icons/renniw-512.png', './icons/renniw-maskable-512.png'];
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(CORE)).then(() => self.skipWaiting()));
-});
-self.addEventListener('activate', event => {
-  event.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(key => key.startsWith('renniw-pwa-') && key !== CACHE).map(key => caches.delete(key)))).then(() => self.clients.claim()));
-});
-self.addEventListener('fetch', event => {
-  const req = event.request;
-  if (req.method !== 'GET' || new URL(req.url).origin !== self.location.origin) return;
-  if (req.mode === 'navigate') {
-    event.respondWith(fetch(req).then(response => {
-      const copy = response.clone(); caches.open(CACHE).then(cache => cache.put('./index.html', copy)); return response;
-    }).catch(() => caches.match('./index.html')));
+const CACHE = 'renniw-pwa-v3';
+const CORE = ['./', './index.html', './manifest.webmanifest', './icons/renniw-192.png', './icons/renniw-512.png', './icons/renniw-maskable-512.png', './icons/apple-touch-icon.png'];
+self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(CORE)).then(() => self.skipWaiting())); });
+self.addEventListener('activate', e => { e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('renniw-pwa-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim())); });
+self.addEventListener('fetch', e => {
+  const r = e.request;
+  if (r.method !== 'GET' || new URL(r.url).origin !== self.location.origin) return;
+  if (r.mode === 'navigate') {
+    e.respondWith(fetch(r).then(res => { const c = res.clone(); caches.open(CACHE).then(ch => ch.put('./index.html', c)); return res; }).catch(() => caches.match('./index.html')));
     return;
   }
-  event.respondWith(caches.match(req).then(cached => cached || fetch(req).then(response => {
-    if (response && response.ok) { const copy = response.clone(); caches.open(CACHE).then(cache => cache.put(req, copy)); }
-    return response;
-  })));
+  e.respondWith(caches.match(r).then(hit => hit || fetch(r).then(res => { if (res && res.ok) { const c = res.clone(); caches.open(CACHE).then(ch => ch.put(r, c)); } return res; })));
 });

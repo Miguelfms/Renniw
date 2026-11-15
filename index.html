@@ -1,9 +1,17 @@
-<meta name="theme-color" content="#102319">
-<meta name="description" content="Renniw: gerencie clubes, atletas, ligas, copas e temporadas de futebol.">
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="theme-color" content="#14120c">
+<meta name="description" content="Renniw: atletas, partidas, torneios e ligas de futebol 1x1.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Renniw">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/renniw-192.png" type="image/png">
-<link rel="apple-touch-icon" href="icons/renniw-192.png">
-<meta charset="utf-8">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Renniw</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -322,283 +330,12 @@
   .wn-spark-box { margin: 10px 0; } .wn-spark { width: 100%; height: 60px; display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; }
   .wn-trofeus { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); } .wn-trofeu { display: grid; justify-items: center; gap: 2px; text-align: center; padding: 10px 6px; border: 1px solid var(--accent); border-radius: 10px; text-decoration: none; background: color-mix(in srgb, var(--accent) 8%, var(--surface)); font-size: 26px; } .wn-trofeu span { font-size: 12px; font-weight: 700; }
   .wn-div { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 10px 0; background: var(--surface); }
-  .wn-tab tr.sobe td { background: color-mix(in srgb, #1d7a45 14%, transparent); } .wn-tab tr.playoff td { background: color-mix(in srgb, #2877b8 13%, transparent); } .wn-tab tr.desce td { background: color-mix(in srgb, var(--signal) 14%, transparent); }
+  .wn-tab tr.sobe td { background: color-mix(in srgb, #1d7a45 14%, transparent); } .wn-tab tr.desce td { background: color-mix(in srgb, var(--signal) 14%, transparent); }
   .wn-opt .ovr, .wn-ord-i .ovr { flex: none; }
-
-
-  /* ===== RENNIW UI REFRESH: painel esportivo ===== */
-  :root {
-    --bg: #100f0c;
-    --surface: #1a1812;
-    --surface-2: #262116;
-    --ink: #f5f0e2;
-    --muted: #aaa087;
-    --line: #393222;
-    --accent: #e4ad32;
-    --accent-ink: #211703;
-    --signal: #ef805d;
-    color-scheme: dark;
-  }
-  @media (prefers-color-scheme: light) {
-    :root:not([data-theme="dark"]):not([data-theme="light"]) {
-      --bg: #f3f0e8; --surface: #fffdf7; --surface-2: #ebe4d3;
-      --ink: #211b0d; --muted: #71664e; --line: #d9cfb8;
-      --accent: #a8700a; --accent-ink: #fff; --signal: #b94b2d;
-      color-scheme: light;
-    }
-  }
-  :root[data-theme="light"] {
-    --bg: #f3f0e8; --surface: #fffdf7; --surface-2: #ebe4d3;
-    --ink: #211b0d; --muted: #71664e; --line: #d9cfb8;
-    --accent: #a8700a; --accent-ink: #fff; --signal: #b94b2d;
-    color-scheme: light;
-  }
-  body { padding-inline: max(16px, env(safe-area-inset-left)) max(16px, env(safe-area-inset-right)); padding-bottom: max(28px, env(safe-area-inset-bottom)); }
-  .app, .view { max-width: 1120px; width: 100%; }
-  .view { max-width: 100%; }
-  .wn { max-width: 100%; }
-  .wn-top { padding: 18px 4px 12px; }
-  .wn-sair { text-transform: uppercase; letter-spacing: .14em; font-size: 10px; font-weight: 800; }
-  .wn-logo { gap: 10px; }
-  .wn-logo b { font-size: 30px; letter-spacing: .12em; }
-  .wn-logo small { border-radius: 999px; padding: 3px 9px; letter-spacing: .08em; }
-  .wn-tabs { top: 0; gap: 7px; padding: 10px 8px; margin: 0 -4px 22px; border: 1px solid var(--line); border-radius: 14px; background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(14px); box-shadow: 0 8px 24px #00000012; }
-  .wn-tabs a { padding: 9px 15px; border-radius: 9px; font-size: 13px; transition: background .18s, color .18s, transform .18s; }
-  .wn-tabs a:hover { background: var(--surface-2); color: var(--ink); }
-  .wn-tabs a[aria-current] { box-shadow: 0 3px 12px color-mix(in srgb, var(--accent) 25%, transparent); }
-  .wn-h1 { font-size: clamp(36px, 5vw, 50px); letter-spacing: .015em; margin-bottom: 8px; }
-  .wn .lead { max-width: 70ch; line-height: 1.65; margin-bottom: 20px; }
-  .wn-hero { border-radius: 20px; padding: clamp(22px, 4vw, 38px); margin-bottom: 16px; border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); background: radial-gradient(ellipse at 90% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 48%), linear-gradient(135deg, var(--surface-2), var(--surface) 72%); box-shadow: 0 14px 34px #00000016; }
-  .wn-hero::before { opacity: .22; background: repeating-linear-gradient(135deg, transparent 0 38px, color-mix(in srgb, var(--accent) 18%, transparent) 38px 39px); }
-  .wn-hero .hm-titulo { font-size: clamp(42px, 8vw, 68px); line-height: .98; max-width: 13ch; }
-  .wn-hero p { max-width: 55ch; line-height: 1.65; }
-  .wn-resumo { gap: 10px; }
-  .wn-resumo div { border-radius: 13px; padding: 14px 8px; background: linear-gradient(145deg, var(--surface), color-mix(in srgb, var(--surface-2) 55%, var(--surface))); box-shadow: 0 5px 16px #0000000d; }
-  .wn-resumo b { font-size: 32px; }
-  .wn .secao { margin: 0 0 26px; }
-  .wn .secao h2 { font-size: 24px; letter-spacing: .015em; text-transform: none; }
-  .wn .lista { gap: 10px; }
-  .wn a.item, .wn .item { border-radius: 12px; padding: 13px 15px; transition: border-color .18s, transform .18s, background .18s; }
-  .wn a.item:hover, .wn .item:hover { border-color: color-mix(in srgb, var(--accent) 65%, var(--line)); transform: translateY(-1px); }
-  .wn-card { border-radius: 14px; padding: 13px; transition: transform .18s, border-color .18s, box-shadow .18s; }
-  .wn-card:hover { transform: translateY(-2px); box-shadow: 0 8px 22px #00000016; }
-  .wn-grade { gap: 11px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 285px), 1fr)); }
-  .wn .btn { min-height: 42px; border-radius: 9px; padding: 9px 15px; font-weight: 700; transition: transform .15s, filter .15s, background .15s; }
-  .wn .btn:hover { transform: translateY(-1px); }
-  .wn .btn.primario { box-shadow: 0 4px 12px color-mix(in srgb, var(--accent) 22%, transparent); }
-  .wn .btn.pequeno { min-height: 35px; border-radius: 8px; }
-  .wn input[type=text], .wn input[type=search], .wn input[type=number], .wn select, .wn textarea { border-radius: 9px; min-height: 44px; }
-  .wn .bloco, .wn .wn-div { border-radius: 13px; padding: 15px; }
-  .wn-tab-wrap { border-radius: 12px; }
-  .wn-tab th { background: var(--surface-2); color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; }
-  .wn-tab th, .wn-tab td { padding: 10px 11px; }
-  .wn-jogo { border-radius: 10px; padding: 10px 12px; }
-  .wn-chave-wrap { border-radius: 14px; padding: 16px 12px; }
-  .wn-campeao { border-radius: 16px; padding: 24px 18px; }
-  .wn-placar-box { border-radius: 16px; }
-  .wn-attr, .wn-opt, .wn-ord-i { border-radius: 10px; }
-  .wn .campo { min-width: 0; }
-  .wn .barra-topo { gap: 9px; margin: 4px 0 16px; }
-  .toast { border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 8px 28px #00000030; }
-  @media (min-width: 900px) {
-    .wn-top { padding-top: 24px; }
-    .wn-tabs { margin-bottom: 28px; }
-    .wn .wn-corpo { padding: 0 2px; }
-  }
-  @media (max-width: 600px) {
-    body { padding-inline: 12px; }
-    .wn-top { padding-top: 12px; }
-    .wn-logo b { font-size: 26px; }
-    .wn-tabs { margin: 0 -2px 18px; padding: 8px 6px; }
-    .wn-tabs a { padding: 9px 12px; font-size: 12px; }
-    .wn-resumo { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .wn-hero { padding: 22px 17px; }
-    .wn-hero .hm-titulo { font-size: 43px; }
-    .wn .secao h2 { font-size: 22px; }
-    .wn a.item, .wn .item { padding: 11px 12px; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .wn *, .wn *::before, .wn *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
-  }
-
-
-  /* Correção Android: remove o flash azul/preto de toque nas abas sem apagar o estado selecionado. */
-  .wn-tabs a {
-    -webkit-tap-highlight-color: transparent;
-    tap-highlight-color: transparent;
-    -webkit-user-select: none;
-    user-select: none;
-    outline: none;
-  }
-  .wn-tabs a:focus { outline: none; }
-  .wn-tabs a:focus-visible {
-    outline: 2px solid var(--accent) !important;
-    outline-offset: 3px;
-  }
-  .wn-tabs a:active {
-    background: var(--surface-2);
-    color: var(--ink);
-    transform: none;
-  }
-  .wn-tabs a[aria-current]:active {
-    background: var(--accent);
-    color: var(--accent-ink);
-  }
-
-  /* RENNIW v6: identidade de central esportiva */
-  :root:not([data-theme="light"]) {
-    --bg:#0b0e12; --surface:#141a22; --surface-2:#1d2631;
-    --ink:#f3f5f7; --muted:#9aa7b5; --line:#2a3542;
-    --accent:#f2b632; --accent-ink:#17120a; --signal:#ff765e;
-    color-scheme:dark;
-  }
-  body {
-    background:
-      radial-gradient(ellipse at 50% -18%, rgba(242,182,50,.105), transparent 42%),
-      linear-gradient(180deg,#0d1117 0%,var(--bg) 340px);
-    min-height:100vh;
-  }
-  .app { max-width:1240px; }
-  .wn-top {
-    min-height:76px; padding:20px 4px 16px;
-    border-bottom:1px solid rgba(242,182,50,.18);
-    margin-bottom:14px;
-  }
-  .wn-sair { color:#8794a2; letter-spacing:.18em; }
-  .wn-logo { gap:11px; }
-  .wn-logo svg { filter:drop-shadow(0 0 9px rgba(242,182,50,.28)); }
-  .wn-logo b { font-size:34px; letter-spacing:.16em; text-shadow:0 3px 18px #000; }
-  .wn-logo small { background:transparent; color:var(--accent); border:1px solid rgba(242,182,50,.55); padding:3px 8px; }
-  .wn-tabs {
-    display:flex; align-items:center; gap:5px; padding:8px;
-    margin:0 0 28px; border:1px solid #28313c; border-radius:13px;
-    background:rgba(17,23,31,.94); box-shadow:0 12px 32px #0005;
-    backdrop-filter:blur(16px);
-  }
-  .wn-tabs a {
-    position:relative; padding:11px 16px; border-radius:8px;
-    color:#9eabb9; font-size:13px; font-weight:800; letter-spacing:.015em;
-    transition:background .18s,color .18s;
-  }
-  .wn-tabs a:hover { background:#222d39; color:#fff; }
-  .wn-tabs a[aria-current] {
-    color:#17120a; background:linear-gradient(135deg,#ffd36b,#e7a91f);
-    box-shadow:0 5px 18px #f2b63230;
-  }
-  .wn-h1 { font-size:clamp(38px,5vw,58px); letter-spacing:-.015em; }
-  .wn .lead { color:#a6b1bd; max-width:72ch; }
-  .wn-hero {
-    min-height:230px; display:flex; flex-direction:column; justify-content:center;
-    padding:clamp(25px,5vw,48px); border:1px solid #5c4923; border-radius:20px;
-    background:
-      radial-gradient(ellipse at 85% 20%,rgba(242,182,50,.2),transparent 38%),
-      linear-gradient(115deg,#202a35 0%,#151c25 58%,#171b20 100%);
-    box-shadow:0 22px 55px #0005;
-  }
-  .wn-hero::before {
-    opacity:.32;
-    background:
-      linear-gradient(90deg,transparent 49.8%,rgba(242,182,50,.22) 50%,transparent 50.2%),
-      radial-gradient(ellipse at 50% 50%,transparent 0 19%,rgba(242,182,50,.15) 19.2% 19.5%,transparent 19.7%);
-  }
-  .wn-hero .hm-eyebrow { color:var(--accent); letter-spacing:.2em; }
-  .wn-hero .hm-titulo { max-width:12ch; font-size:clamp(46px,8vw,76px); text-shadow:0 4px 25px #0006; }
-  .wn-hero p { color:#b4bec8; max-width:50ch; }
-  .wn-resumo { gap:12px; margin:18px 0 30px; }
-  .wn-resumo div {
-    position:relative; overflow:hidden; min-height:92px; text-align:left;
-    padding:15px 17px; border:1px solid #2a3542; border-radius:13px;
-    background:linear-gradient(145deg,#19212b,#11171f);
-    box-shadow:0 10px 24px #0003;
-  }
-  .wn-resumo div::after { content:""; position:absolute; right:-23px; bottom:-34px; width:90px; height:90px; border:1px solid #f2b63220; border-radius:50%; }
-  .wn-resumo b { font-size:35px; color:#f2b632; line-height:1.05; }
-  .wn-resumo span { color:#a2afbc; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.1em; }
-  .wn .secao { margin:0 0 32px; }
-  .wn .secao h2 { display:flex; align-items:center; gap:10px; margin-bottom:13px; font-size:25px; color:#f1f3f5; }
-  .wn .secao h2::before { content:""; width:4px; height:22px; border-radius:4px; background:var(--accent); }
-  .wn .lista { gap:9px; }
-  .wn a.item,.wn .item {
-    border:1px solid #293440; border-radius:12px;
-    background:linear-gradient(110deg,#171f29,#131a22);
-    box-shadow:0 5px 14px #0002;
-  }
-  .wn a.item:hover,.wn .item:hover { background:#1c2732; border-color:#8b6a27; transform:translateY(-1px); }
-  .wn-card {
-    border:1px solid #2b3744; border-radius:14px;
-    background:linear-gradient(145deg,#1b2530,#131a22);
-    box-shadow:0 7px 18px #0002;
-  }
-  .wn-card:hover { border-color:#9a762c; background:#202b37; }
-  .wn-card-info strong { color:#f1f3f5; }
-  .wn-card-info small { color:#9eabb8; }
-  .wn-mini,.wn-card-av,.wn-ed-av { background:#26313d; border:1px solid #394653; }
-  .wn-pos { color:var(--accent); }
-  .wn-rt b,.wn-placar { color:var(--accent); }
-  .wn .btn {
-    border:1px solid #394653; border-radius:9px; background:#202a35;
-    color:#e9edf1; min-height:43px; padding:10px 16px;
-  }
-  .wn .btn:hover { background:#2a3745; border-color:#647382; }
-  .wn .btn.primario {
-    color:#17120a; border-color:#e5a91f;
-    background:linear-gradient(135deg,#ffd36b,#e7a91f);
-    box-shadow:0 6px 18px #f2b63226;
-  }
-  .wn .btn.perigo,.wn .btn.perigo:hover { color:#ff9b88; border-color:#804536; background:#321f20; }
-  .wn input[type=text],.wn input[type=search],.wn input[type=number],.wn select,.wn textarea {
-    background:#10161e; color:#edf1f5; border:1px solid #354250; border-radius:9px;
-  }
-  .wn input:focus,.wn select:focus,.wn textarea:focus { outline:2px solid #dba52f; outline-offset:1px; border-color:#dba52f; }
-  .wn .campo label { color:#aab5c0; }
-  .wn .bloco,.wn .wn-div,.wn .vazio {
-    border:1px solid #2b3744; border-radius:13px; background:#151d26;
-  }
-  .wn .vazio { border-style:dashed; color:#dce2e8; }
-  .wn .vazio p,.wn .vazio strong { color:#aab5c0; }
-  .wn .chip { border:1px solid #3a4653; background:#222d38; color:#c6d0d9; }
-  .wn .chip.proxima { border-color:#dba52f; background:#dba52f; color:#191306; }
-  .wn-tab-wrap { overflow-x:auto; border:1px solid #2b3744; border-radius:12px; background:#141b24; }
-  .wn-tab { border-collapse:collapse; }
-  .wn-tab th { background:#202a35; color:#aeb9c4; }
-  .wn-tab td { border-top:1px solid #283440; color:#e3e8ed; }
-  .wn-tab tr:hover td { background:#202a35; }
-  .wn-tab td a { color:#f1c45c; text-decoration:none; }
-  .wn-jogo { border:1px solid #303c49; background:#18212b; border-radius:10px; }
-  .wn-chave-wrap { border:1px solid #2b3744; background:#111820; border-radius:14px; }
-  .wn-campeao { border:1px solid #876522; background:radial-gradient(ellipse at 50% 0%,#4b3918,#1b2025 68%); border-radius:16px; }
-  .wn-placar-box { border:1px solid #6b5425; background:linear-gradient(145deg,#252b31,#171d24); }
-  .wn-attr,.wn-opt,.wn-ord-i { background:#19222c; border:1px solid #2c3946; }
-  .wn .dica,.wn small { color:#9eabb8; }
-  .wn .aviso { border-radius:10px; background:#2b2119; color:#f1c58a; }
-  .toast { background:#f2b632; color:#17120a; border:0; font-weight:800; }
-  @media(max-width:650px) {
-    body { padding-inline:10px; }
-    .wn-top { padding:13px 3px 12px; }
-    .wn-sair { font-size:9px; }
-    .wn-logo b { font-size:27px; }
-    .wn-tabs { margin:0 -2px 21px; padding:7px; gap:4px; border-radius:11px; }
-    .wn-tabs a { padding:10px 12px; font-size:12px; }
-    .wn-hero { min-height:220px; padding:25px 19px; }
-    .wn-hero .hm-titulo { font-size:46px; }
-    .wn-resumo { gap:8px; }
-    .wn-resumo div { min-height:82px; padding:12px; }
-    .wn-resumo b { font-size:30px; }
-    .wn-grade { grid-template-columns:minmax(0,1fr); }
-    .wn .secao { margin-bottom:26px; }
-    .wn .secao h2 { font-size:22px; }
-    .wn .barra-topo .btn { flex:1 1 auto; }
-  }
-  @media(min-width:900px) {
-    .wn-top { padding-top:26px; }
-    .wn-corpo { max-width:1120px; margin:auto; }
-    .wn-tabs { margin-bottom:32px; }
-  }
-  @media(prefers-reduced-motion:reduce) {
-    .wn *, .wn *::before, .wn *::after { transition:none !important; }
-  }
-
 </style>
+</head>
+<body>
+
 
 <div class="app">
   <nav class="nav" id="nav" aria-label="Menu principal"></nav>
@@ -1095,7 +832,7 @@
     montar();
   }
   const COMP_TIPOS = { liga: 'Liga', copa: 'Copa', torneio: 'Torneio personalizado' };
-  const COMP_FORMATOS = { liga: 'Pontos corridos', mata: 'Mata-mata', grupos: 'Fase de grupos e mata-mata', misto: 'Fases personalizadas', suico: 'Sistema suíço', dupla: 'Eliminação dupla' };
+  const COMP_FORMATOS = { liga: 'Pontos corridos', mata: 'Mata-mata', grupos: 'Fase de grupos e mata-mata', misto: 'Fases personalizadas' };
   const compInt = (v, a, b, f) => { const n = Math.round(Number(v)); return Number.isFinite(n) ? Math.min(b, Math.max(a, n)) : f; };
 
   function embaralhar(a) {
@@ -1125,9 +862,9 @@
      spec = { tipo:'liga'|'mata', nome, grupos, classificam, extras, returno, idaVolta, finalIdaVolta, terceiro, golFora, seed:'sorteio'|'ordem'|'manual', manual:{clubeId:grupo} } */
   function specSegura(s) {
     s = s || {};
-    const tipo = ['mata', 'suico', 'dupla'].includes(s.tipo) ? s.tipo : 'liga';
+    const tipo = s.tipo === 'mata' ? 'mata' : 'liga';
     return {
-      tipo, nome: String(s.nome || '').slice(0, 30), grupos: compInt(s.grupos, 1, 8, 1), classificam: compInt(s.classificam, 1, 16, 2), extras: compInt(s.extras, 0, 8, 0), rodadas: compInt(s.rodadas, 3, 12, 5),
+      tipo, nome: String(s.nome || '').slice(0, 30), grupos: compInt(s.grupos, 1, 8, 1), classificam: compInt(s.classificam, 1, 16, 2), extras: compInt(s.extras, 0, 8, 0),
       returno: !!s.returno, idaVolta: !!s.idaVolta, finalIdaVolta: !!s.finalIdaVolta, terceiro: !!s.terceiro, golFora: !!s.golFora,
       seed: ['sorteio', 'ordem', 'manual'].includes(s.seed) ? s.seed : 'sorteio', manual: s.manual && typeof s.manual === 'object' ? s.manual : null
     };
@@ -1136,10 +873,10 @@
   function specsDe(comp) {
     if (Array.isArray(comp.specs) && comp.specs.length) return comp.specs.map(specSegura);
     const r = comp.regras || {}, plano = Array.isArray(comp.plano) && comp.plano.length ? comp.plano : [comp.fases && comp.fases[0] ? comp.fases[0].tipo : 'liga'];
-    return plano.map((t, i) => t === 'mata' ? specSegura({ tipo: 'mata', idaVolta: r.idaVolta }) : t === 'suico' ? specSegura({ tipo: 'suico', rodadas: r.rodadas }) : t === 'dupla' ? specSegura({ tipo: 'dupla' }) : specSegura({ tipo: 'liga', grupos: i === 0 && plano.length > 1 ? r.grupos : 1, classificam: r.classificam, returno: r.returno }));
+    return plano.map((t, i) => t === 'mata' ? specSegura({ tipo: 'mata', idaVolta: r.idaVolta }) : specSegura({ tipo: 'liga', grupos: i === 0 && plano.length > 1 ? r.grupos : 1, classificam: r.classificam, returno: r.returno }));
   }
   function nomesFases(specs) {
-    const base = specs.map(s => s.nome || (s.tipo === 'mata' ? 'Mata-mata' : s.tipo === 'suico' ? 'Sistema suíço' : s.tipo === 'dupla' ? 'Eliminação dupla' : s.grupos > 1 ? 'Fase de grupos' : 'Pontos corridos'));
+    const base = specs.map(s => s.nome || (s.tipo === 'mata' ? 'Mata-mata' : s.grupos > 1 ? 'Fase de grupos' : 'Pontos corridos'));
     return base.map((n, i) => base.filter(x => x === n).length > 1 ? n + ' ' + (base.slice(0, i + 1).filter(x => x === n).length) : n);
   }
   const ehPot2 = n => n >= 2 && (n & (n - 1)) === 0;
@@ -1198,66 +935,6 @@
     }
     fase.rodadasMata.push(rod);
   }
-  // Sistema suíço: cada atleta joga uma vez por rodada, enfrenta adversários de campanha semelhante e evita repetição.
-  function rodadaSuica(fase, ids, regras, numero) {
-    const tab = tabelaDe(fase.jogos, ids, regras);
-    const usados = new Set(fase.jogos.filter(j => j.res).map(j => [j.casa, j.fora].sort().join('|')));
-    const pend = tab.map(x => x.id), jogos = [];
-    while (pend.length >= 2) {
-      const a = pend.shift(); let idx = pend.findIndex(b => !usados.has([a, b].sort().join('|')));
-      if (idx < 0) idx = 0;
-      const b = pend.splice(idx, 1)[0];
-      jogos.push({ id: novoId() + 's' + numero + jogos.length, rodada: numero, grupo: 0, conf: null, perna: null, casa: a, fora: b, res: null });
-    }
-    jogos.forEach(j => fase.jogos.push(j));
-  }
-  function faseSuica(ids, spec, nome, regras) {
-    const f = { nome, tipo: 'suico', grupos: [{ nome: 'Classificação geral', clubes: ids.slice() }], rodadasMata: [], jogos: [], concluida: false, rodadasTotal: compInt(spec.rodadas, 3, 12, 5) };
-    // A primeira rodada é sorteada; as seguintes usam a classificação e evitam revanche.
-    const ordem = embaralhar(ids);
-    for (let i = 0; i + 1 < ordem.length; i += 2) f.jogos.push({ id: novoId() + 's1' + i, rodada: 1, grupo: 0, conf: null, perna: null, casa: ordem[i], fora: ordem[i + 1], res: null });
-    return f;
-  }
-
-  function duplaAdicionarJogos(fase, pares, tipo, rotulo, rodada) {
-    pares.forEach((p, i) => fase.jogos.push({ id: novoId() + 'd' + rodada + i, rodada, grupo: null, conf: 'dupla-' + rodada + '-' + tipo + '-' + i, perna: null, casa: p[0], fora: p[1], res: null, duplaTipo: tipo, duplaLabel: rotulo }));
-  }
-  const duplaPares = ids => { const out = []; for (let i = 0; i + 1 < ids.length; i += 2) out.push([ids[i], ids[i + 1]]); return out; };
-  function duplaProximaEtapa(fase, wbVencedores, wbPerdedores, lbVencedores) {
-    const d = fase.dupla; d.etapa++;
-    const novos = wbPerdedores || [], base = (lbVencedores || d.lb || []).slice();
-    let pend = d.pendentes.slice(), pares = [];
-    if (wbVencedores && wbVencedores.length === 1) d.wbCampeao = wbVencedores[0];
-    else if (wbVencedores && wbVencedores.length > 1) d.wb = wbVencedores.slice();
-    if (lbVencedores) d.lb = lbVencedores.slice();
-    if (pend.length) {
-      if (base.length === pend.length) { pares = base.map((x, i) => [x, pend[i]]); pend = novos.slice(); }
-      else if (base.length === pend.length * 2) pares = duplaPares(base);
-    } else if (novos.length) {
-      if (!base.length) pares = duplaPares(novos);
-      else if (base.length === novos.length) pares = base.map((x, i) => [x, novos[i]]);
-      else if (base.length === novos.length * 2) { pares = duplaPares(base); pend = novos.slice(); }
-    } else if (base.length > 1) pares = duplaPares(base);
-    if (pares.length) {
-      d.pendentes = pend;
-      const wbPairs = !d.wbCampeao && d.wb && d.wb.length > 1 ? duplaPares(d.wb) : [];
-      if (wbPairs.length) duplaAdicionarJogos(fase, wbPairs, 'wb', 'Chave dos vencedores', d.etapa);
-      duplaAdicionarJogos(fase, pares, 'lb', 'Chave dos perdedores', d.etapa);
-      return;
-    }
-    d.pendentes = pend;
-    if (d.wbCampeao && base.length === 1 && !pend.length && !novos.length) {
-      d.lbCampeao = base[0]; duplaAdicionarJogos(fase, [[d.wbCampeao, d.lbCampeao]], 'gf', 'Grande final', d.etapa); return;
-    }
-    const wbPairs = !d.wbCampeao && d.wb && d.wb.length > 1 ? duplaPares(d.wb) : [];
-    if (wbPairs.length) duplaAdicionarJogos(fase, wbPairs, 'wb', 'Chave dos vencedores', d.etapa);
-  }
-  function faseDupla(ids, spec, nome) {
-    const f = { nome, tipo: 'dupla', grupos: [], rodadasMata: [], jogos: [], concluida: false, dupla: { wb: ids.slice(), lb: [], pendentes: [], etapa: 0, wbCampeao: null, lbCampeao: null } };
-    duplaProximaEtapa(f, null, null, []);
-    return f;
-  }
-
   function faseMata(ids, spec, nome) {
     const f = { nome, tipo: 'mata', grupos: [], rodadasMata: [], jogos: [], concluida: false, cfg: { idaVolta: !!spec.idaVolta, finalIdaVolta: !!spec.finalIdaVolta, terceiro: !!spec.terceiro, golFora: !!spec.golFora } };
     rodadaMata(f, ids, f.cfg);
@@ -1269,11 +946,11 @@
     if (Array.isArray(o.specs) && o.specs.length) return o.specs.map(specSegura);
     const r = o.regras || {};
     const formato = o.tipo === 'liga' ? 'liga' : o.tipo === 'copa' ? 'mata' : (COMP_FORMATOS[o.formato] ? o.formato : 'liga');
-    const plano = formato === 'suico' ? ['suico'] : formato === 'dupla' ? ['dupla'] : formato === 'liga' ? ['liga'] : formato === 'mata' ? ['mata'] : ['liga', 'mata'];
+    const plano = formato === 'liga' ? ['liga'] : formato === 'mata' ? ['mata'] : ['liga', 'mata'];
     return specsDe({ regras: r, plano });
   }
   function formatoDeSpecs(specs) {
-    if (specs.length === 1) return specs[0].tipo === 'dupla' ? 'dupla' : specs[0].tipo === 'suico' ? 'suico' : specs[0].tipo === 'mata' ? 'mata' : 'liga';
+    if (specs.length === 1) return specs[0].tipo === 'mata' ? 'mata' : 'liga';
     return specs.length === 2 && specs[0].tipo === 'liga' && specs[0].grupos > 1 && specs[1].tipo === 'mata' ? 'grupos' : 'misto';
   }
 
@@ -1292,8 +969,6 @@
       regras, specs, clubes: ids, nomes: o.nomes || {}, plano: specs.map(s => s.tipo), fases: [], status: 'andamento', campeaoId: null, stats: {}
     };
     if (s0.tipo === 'mata') comp.fases.push(faseMata(s0.seed === 'ordem' && ehPot2(ids.length) ? ordemChave(ids.length).map(i => ids[i - 1]) : ids, s0, nomes[0]));
-    else if (s0.tipo === 'dupla') comp.fases.push(faseDupla(ids, s0, nomes[0]));
-    else if (s0.tipo === 'suico') comp.fases.push(faseSuica(ids, s0, nomes[0], regras));
     else comp.fases.push(faseLiga(ids, s0, s0.grupos, nomes[0]));
     return comp;
   }
@@ -1302,22 +977,11 @@
   function validarCompeticao(o) {
     const n = o.clubes.length, specs = specsDoPedido(o);
     if (n < 2) return 'Escolha pelo menos 2 clubes.';
-    if (n > 64) return 'O máximo é 64 participantes.';
+    if (n > 32) return 'O máximo é 32 clubes.';
     if (specs.length > 4) return 'No máximo 4 fases.';
     let cur = n;
     for (let i = 0; i < specs.length; i++) {
       const s = specs[i], ult = i === specs.length - 1, tag = specs.length > 1 ? ' (fase ' + (i + 1) + ')' : '';
-      if (s.tipo === 'dupla') {
-        if (!ult || i !== 0) return 'A eliminação dupla deve ser uma fase única.';
-        if (![4, 8, 16, 32].includes(n)) return 'A eliminação dupla aceita 4, 8, 16 ou 32 participantes.';
-        continue;
-      }
-      if (s.tipo === 'suico') {
-        if (!ult || i !== 0) return 'O sistema suíço deve ser uma fase única nesta versão.';
-        if (n % 2) return 'O sistema suíço precisa de um número par de participantes nesta versão.';
-        if (cur < 4) return 'O sistema suíço precisa de pelo menos 4 participantes.';
-        continue;
-      }
       if (s.tipo === 'mata') {
         if (!ult) return 'O mata-mata precisa ser a última fase.';
         if (i > 0 && !ehPot2(cur)) return 'O mata-mata receberia ' + cur + ' clubes; precisa ser 2, 4, 8, 16 ou 32. Ajuste classificados e extras da fase anterior.';
@@ -1349,7 +1013,6 @@
     const nomes = nomesFases(specs); let cur = n, tot = 0; const partes = [];
     for (let i = 0; i < specs.length; i++) {
       const s = specs[i], ult = i === specs.length - 1;
-      if (s.tipo === 'suico') { const j = Math.floor(cur / 2) * s.rodadas; tot += j; partes.push(nomes[i] + ': ' + cur + ' participantes, ' + s.rodadas + ' rodadas, ' + j + ' jogos'); break; }
       if (s.tipo === 'mata') {
         const legs = (s.idaVolta ? 2 : 1), r = Math.max(1, Math.ceil(Math.log2(cur)));
         let j = 0, c = cur; for (let k = 0; k < r; k++) { const tam = c <= 2 ? 2 : Math.pow(2, Math.ceil(Math.log2(c))); const conf = c - tam / 2 > 0 ? c - tam / 2 : 1; const ida = tam > 2 ? s.idaVolta : s.finalIdaVolta; j += conf * (ida ? 2 : 1); c = tam / 2; if (tam === 2 && s.terceiro) j++; }
@@ -1476,38 +1139,6 @@
     const specs = specsDe(comp), nomes = nomesFases(specs);
     for (let guarda = 0; guarda < 20 && comp.status === 'andamento'; guarda++) {
       const idx = comp.fases.length - 1, fase = comp.fases[idx], spec = specs[Math.min(idx, specs.length - 1)];
-      if (fase.tipo === 'dupla') {
-        const etapa = Math.max(1, ...fase.jogos.map(j => j.rodada)), jogosEtapa = fase.jogos.filter(j => j.rodada === etapa);
-        if (!jogosEtapa.length || jogosEtapa.some(j => !j.res)) return;
-        const d = fase.dupla || (fase.dupla = { wb: [], lb: [], pendentes: [], etapa: etapa, wbCampeao: null, lbCampeao: null });
-        const wb = jogosEtapa.filter(j => j.duplaTipo === 'wb'), lb = jogosEtapa.filter(j => j.duplaTipo === 'lb'), gf = jogosEtapa.find(j => j.duplaTipo === 'gf' || j.duplaTipo === 'reset');
-        if (gf) {
-          const vencedor = gf.res.penaltis ? (gf.res.penaltis[0] > gf.res.penaltis[1] ? gf.casa : gf.fora) : gf.res.placar[0] > gf.res.placar[1] ? gf.casa : gf.fora;
-          if (gf.duplaTipo === 'reset' || vencedor === d.wbCampeao) { fase.concluida = true; comp.status = 'encerrada'; comp.campeaoId = vencedor; return; }
-          d.lbCampeao = vencedor; d.etapa++; duplaAdicionarJogos(fase, [[d.wbCampeao, d.lbCampeao]], 'reset', 'Final de reinício', d.etapa); return;
-        }
-        const vence = j => j.res.penaltis ? (j.res.penaltis[0] > j.res.penaltis[1] ? j.casa : j.fora) : (j.res.placar[0] > j.res.placar[1] ? j.casa : j.fora);
-        const perde = j => vence(j) === j.casa ? j.fora : j.casa;
-        const wbV = wb.map(vence), wbP = wb.map(perde), lbV = lb.map(vence);
-        duplaProximaEtapa(fase, wb.length ? wbV : null, wb.length ? wbP : [], lb.length ? lbV : d.lb);
-        if (!fase.jogos.some(j => j.rodada > etapa)) return;
-        continue;
-      }
-      if (fase.tipo === 'suico') {
-        const rodAtual = Math.max(1, ...fase.jogos.map(j => j.rodada));
-        const jogosRodada = fase.jogos.filter(j => j.rodada === rodAtual);
-        if (!jogosRodada.length || jogosRodada.some(j => !j.res)) return;
-        if (rodAtual < (fase.rodadasTotal || 5)) { rodadaSuica(fase, fase.grupos[0].clubes, comp.regras, rodAtual + 1); continue; }
-        const tab = tabelaDe(fase.jogos, fase.grupos[0].clubes, comp.regras);
-        if (comp.subtipo === 'champions36') {
-          const diretos = tab.slice(0, 8).map(r => r.id), playoffBase = tab.slice(8, 24).map(r => r.id), playoff = Array.from({ length: 8 }, (_, i) => [playoffBase[i], playoffBase[15 - i]]).flat();
-          fase.concluida = true; comp.classificacaoFaseLiga = tab.map((r, i) => ({ atletaId: r.id, posicao: i + 1, pontos: r.pts, saldo: r.sg }));
-          const pf = faseMata(playoff, specSegura({ tipo: 'mata' }), 'Playoffs · vagas nas oitavas'); pf.champPlayoff = true; pf.diretos = diretos; comp.fases.push(pf); continue;
-        }
-        fase.concluida = true; comp.status = 'encerrada'; comp.campeaoId = tab[0] ? tab[0].id : null;
-        comp.classificacaoFinal = tab.map((r, i) => ({ atletaId: r.id, posicao: i + 1, pontos: r.pts, saldo: r.sg }));
-        return;
-      }
       if (fase.tipo === 'mata') {
         const cfg = fase.cfg || { idaVolta: !!(comp.regras && comp.regras.idaVolta) };
         const rod = fase.rodadasMata[fase.rodadasMata.length - 1];
@@ -1522,11 +1153,6 @@
         if (decididos.some(d => !d)) return;
         const prin = rod.confrontos.map((c, i) => ({ c, d: decididos[i] })).filter(x => !x.c.terceiro);
         const passam = rod.diretos.concat(prin.map(x => x.d.vencedor));
-        if (fase.champPlayoff && fase.rodadasMata.length === 1) {
-          const vencedoresPlayoff = prin.map(x => x.d.vencedor), qualificados = [];
-          for (let i = 0; i < 8; i++) qualificados.push((fase.diretos || [])[i], vencedoresPlayoff[7 - i]);
-          fase.concluida = true; const oitavas = faseMata(qualificados, specSegura({ tipo: 'mata' }), 'Oitavas de final'); comp.fases.push(oitavas); continue;
-        }
         if (passam.length === 1) { fase.concluida = true; comp.status = 'encerrada'; comp.campeaoId = passam[0]; return; }
         const perd = cfg.terceiro && passam.length === 2 && prin.length === 2 ? prin.map(x => x.d.vencedor === x.c.a ? x.c.b : x.c.a) : null;
         rodadaMata(fase, passam, cfg, perd);
@@ -1549,14 +1175,10 @@
   const compFaseAtual = comp => comp.fases[comp.fases.length - 1];
 
   // Primeira rodada com jogos pendentes (a perna de volta só abre depois da ida).
-  function jogosJogaveis(comp, grupo = null) {
+  function jogosJogaveis(comp) {
     const f = compFaseAtual(comp);
     if (!f || comp.status !== 'andamento') return [];
-    // Em fases com grupos, cada grupo avança suas rodadas independentemente.
-    const base = f.tipo === 'liga' && f.grupos.length > 1 && grupo != null
-      ? f.jogos.filter(j => j.grupo === grupo)
-      : f.jogos;
-    const pend = base.filter(j => !j.res);
+    const pend = f.jogos.filter(j => !j.res);
     if (!pend.length) return [];
     const r = Math.min(...pend.map(j => j.rodada));
     return pend.filter(j => j.rodada === r && (j.perna !== 2 || f.jogos.some(x => x.conf === j.conf && x.perna === 1 && x.res)));
@@ -1588,8 +1210,7 @@
     return c ? c.nome : ((comp.nomes && comp.nomes[id] && comp.nomes[id].nome) || 'Clube removido');
   }
   function rotuloJogoComp(comp, fase, jogo) {
-    if (fase.tipo === 'dupla') return (jogo.duplaLabel || 'Eliminação dupla') + ' · Etapa ' + jogo.rodada;
-    if (fase.tipo === 'liga' || fase.tipo === 'suico') return fase.nome + (fase.grupos.length > 1 ? ' · ' + fase.grupos[jogo.grupo].nome : '') + ' · Rodada ' + jogo.rodada;
+    if (fase.tipo === 'liga') return fase.nome + (fase.grupos.length > 1 ? ' · ' + fase.grupos[jogo.grupo].nome : '') + ' · Rodada ' + jogo.rodada;
     const rod = fase.rodadasMata[jogo.rodada - 1], cf = rod && rod.confrontos.find(x => x.id === jogo.conf);
     return (cf && cf.terceiro ? 'Disputa do 3º lugar' : rod ? rod.nome : 'Mata-mata') + (jogo.perna ? ' · ' + (jogo.perna === 1 ? 'Ida' : 'Volta') : '');
   }
@@ -1626,7 +1247,7 @@
 
   function compSegura(c) {
     if (!c || typeof c !== 'object' || typeof c.id !== 'string' || !Array.isArray(c.fases) || !c.fases.length || !Array.isArray(c.clubes)) return null;
-    if (!c.fases.every(f => f && Array.isArray(f.jogos) && Array.isArray(f.grupos || []) && (f.tipo === 'liga' || f.tipo === 'mata' || f.tipo === 'suico' || f.tipo === 'dupla'))) return null;
+    if (!c.fases.every(f => f && Array.isArray(f.jogos) && Array.isArray(f.grupos || []) && (f.tipo === 'liga' || f.tipo === 'mata'))) return null;
     c.stats = c.stats && typeof c.stats === 'object' ? c.stats : {};
     c.nomes = c.nomes && typeof c.nomes === 'object' ? c.nomes : {};
     c.regras = Object.assign({ pv: 3, pe: 1, pd: 0, returno: false, idaVolta: false, grupos: 2, classificam: 2, desempate: 'padrao' }, c.regras || {});
@@ -1674,8 +1295,8 @@
       o.rivais = (Array.isArray(d.rivais) ? d.rivais : []).filter(r => Array.isArray(r) && r.length === 2 && ids.has(r[0]) && ids.has(r[1]) && r[0] !== r[1]).map(r => [r[0], r[1]]);
       o.ligas = (Array.isArray(d.ligas) ? d.ligas : []).filter(l => l && typeof l === 'object' && typeof l.id === 'string' && Array.isArray(l.divisoes) && l.divisoes.length && Array.isArray(l.temporadas)).map(l => {
         l.nome = String(l.nome || 'Liga').slice(0, 40);
-        l.divisoes = l.divisoes.filter(x => x && typeof x.id === 'string').map(x => ({ id: x.id, nome: String(x.nome || 'Divisão').slice(0, 30), rebaixam: num(x.rebaixam, 0, 10, 0), acessoDireto: Number.isFinite(Number(x.acessoDireto)) ? num(x.acessoDireto, 0, 10, 0) : null, playoffInicio: num(x.playoffInicio, 0, 32, 0), playoffFim: num(x.playoffFim, 0, 32, 0), playoffIdaVolta: !!x.playoffIdaVolta, returno: !!x.returno, mataTop: [0, 2, 4, 8, 16].includes(x.mataTop) ? x.mataTop : 0, idaVolta: !!x.idaVolta, atletas: (Array.isArray(x.atletas) ? x.atletas : []).filter(i => ids.has(i)) }));
-        l.temporadas = l.temporadas.filter(t => t && typeof t === 'object' && t.comps && typeof t.comps === 'object').map(t => ({ n: num(t.n, 1, 9999, 1), comps: t.comps, status: t.status === 'encerrada' ? 'encerrada' : 'andamento', campeoes: t.campeoes && typeof t.campeoes === 'object' ? t.campeoes : {}, acessos: t.acessos && typeof t.acessos === 'object' ? t.acessos : {}, mov: Array.isArray(t.mov) ? t.mov : [] }));
+        l.divisoes = l.divisoes.filter(x => x && typeof x.id === 'string').map(x => ({ id: x.id, nome: String(x.nome || 'Divisão').slice(0, 30), rebaixam: num(x.rebaixam, 0, 10, 0), returno: !!x.returno, mataTop: [0, 2, 4, 8, 16].includes(x.mataTop) ? x.mataTop : 0, idaVolta: !!x.idaVolta, atletas: (Array.isArray(x.atletas) ? x.atletas : []).filter(i => ids.has(i)) }));
+        l.temporadas = l.temporadas.filter(t => t && typeof t === 'object' && t.comps && typeof t.comps === 'object').map(t => ({ n: num(t.n, 1, 9999, 1), comps: t.comps, status: t.status === 'encerrada' ? 'encerrada' : 'andamento', campeoes: t.campeoes && typeof t.campeoes === 'object' ? t.campeoes : {}, mov: Array.isArray(t.mov) ? t.mov : [] }));
         return l;
       }).filter(l => l.divisoes.length && l.temporadas.length);
       o.cfg = Object.assign(o.cfg, d.cfg && typeof d.cfg === 'object' ? d.cfg : {});
@@ -1970,7 +1591,7 @@
     const t = WStore.get().torneios.find(x => x.id === tid); if (!t) return null;
     const a = compJogo(t, jogoId); if (!a || a.jogo.res || t.status !== 'andamento') return null;
     const A = wnAtleta(a.jogo.casa), B = wnAtleta(a.jogo.fora); if (!A || !B) return { erro: 'Um dos atletas foi removido.' };
-    const mata = (a.fase.tipo === 'mata' && !a.jogo.perna) || a.fase.tipo === 'dupla';
+    const mata = a.fase.tipo === 'mata' && !a.jogo.perna;
     const sim = wnSimular(A, B, { sorte: WStore.get().cfg.sorte, mando: 'neutro', mata, prorrogacao: true });
     const reg = wnRegistrar(sim, { tipo: 'torneio', torneioId: t.id, torneio: t.nome, fase: rotuloJogoComp(t, a.fase, a.jogo) });
     WStore.update(() => { a.jogo.res = { placar: [sim.placar[0], sim.placar[1]], penaltis: sim.penaltis ? [sim.penaltis[0], sim.penaltis[1]] : null, partidaId: reg.id }; avancarCompeticao(t); });
@@ -1978,7 +1599,7 @@
   }
 
   const WN_LOGO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v5a5 5 0 01-10 0z"/><path d="M7 6H4v1a3 3 0 003 3M17 6h3v1a3 3 0 01-3 3"/><path d="M12 14v4M8 21h8"/></svg>';
-  const WN_ABAS = [['winner', 'Início'], ['winner-atletas', 'Atletas'], ['winner-partida', 'Partida'], ['winner-torneios', 'Torneios'], ['winner-copas', 'Copas'], ['winner-ligas', 'Ligas'], ['winner-ranking', 'Ranking'], ['winner-historico', 'Histórico'], ['winner-dados', 'Dados']];
+  const WN_ABAS = [['winner', 'Início'], ['winner-atletas', 'Atletas'], ['winner-partida', 'Partida'], ['winner-torneios', 'Torneios'], ['winner-ligas', 'Ligas'], ['winner-ranking', 'Ranking'], ['winner-historico', 'Histórico'], ['winner-dados', 'Dados']];
   const wnSel = { a: '', b: '', mando: 'neutro', mata: false, prorr: true, estiloA: '', estiloB: '', sorte: null, narrar: null };
   let wnRevelar = null;
   const wnData = iso => { try { return new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: '2-digit' }) + ' ' + new Date(iso).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } };
@@ -2002,7 +1623,7 @@
   /* ---------- Renniw: casca e rotas ---------- */
   function telaRenniw(el, h) {
     const esc = UI.esc;
-    const aba = h.startsWith('winner-atleta') || h.startsWith('winner-perfil') ? 'winner-atletas' : h.startsWith('winner-liga') ? 'winner-ligas' : h.startsWith('winner-jogo') ? 'winner-historico' : h.startsWith('winner-torneio') ? 'winner-torneios' : h.startsWith('winner-copa') ? 'winner-copas' : (WN_ABAS.some(x => x[0] === h) ? h : 'winner');
+    const aba = h.startsWith('winner-atleta') || h.startsWith('winner-perfil') ? 'winner-atletas' : h.startsWith('winner-liga') ? 'winner-ligas' : h.startsWith('winner-jogo') ? 'winner-historico' : h.startsWith('winner-torneio') ? 'winner-torneios' : (WN_ABAS.some(x => x[0] === h) ? h : 'winner');
     const raiz = document.createElement('div'); raiz.className = 'wn'; el.appendChild(raiz);
     raiz.innerHTML = `<div class="wn-top"><span class="wn-sair">Futebol 1x1</span><span class="wn-logo">${WN_LOGO}<b>RENNIW</b><small>1x1</small></span></div>
       <nav class="wn-tabs" aria-label="Renniw">${WN_ABAS.map(([id, nome]) => `<a href="#${id}" ${id === aba ? 'aria-current="page"' : ''}>${esc(nome)}</a>`).join('')}</nav><div class="wn-corpo"></div>`;
@@ -2013,8 +1634,6 @@
     else if (h === 'winner-partida') wnPartida(corpo);
     else if (h.startsWith('winner-jogo-')) wnResultado(corpo, h.slice(12));
     else if (h === 'winner-torneios') wnTorneios(corpo);
-    else if (h === 'winner-copas') wnCopas(corpo);
-    else if (h === 'winner-copa-nova') { wnTF.formato = 'copa'; wnTF.nome = 'Copa Nacional'; wnTorneioNovo(corpo); }
     else if (h === 'winner-torneio-novo') wnTorneioNovo(corpo);
     else if (h.startsWith('winner-torneio-')) wnTorneio(corpo, h.slice(15));
     else if (h.startsWith('winner-perfil-')) wnPerfil(corpo, h.slice(14));
@@ -2038,14 +1657,14 @@
     const rank = at.map(a => Object.assign({ a }, S[a.id] || wnVazioStats(a.id))).sort((x, y) => y.rating - x.rating || y.apr - x.apr);
     const ult = W.partidas.slice(-5).reverse(), and = W.torneios.filter(t => t.status === 'andamento' && !t.liga);
     c.innerHTML = `<div class="wn-hero"><span class="hm-eyebrow">Modo 1x1</span><h1 class="hm-titulo">Atleta contra <em>atleta</em></h1><p>Crie jogadores, coloque-os frente a frente e monte torneios. Tudo fica salvo neste aparelho.</p>
-        <div class="linha" style="gap:10px"><a class="btn primario hm-btn" href="#winner-partida">Nova partida</a><a class="btn hm-btn" href="#winner-torneio-novo">Novo torneio</a></div></div>
+        <div class="linha" style="gap:10px"><a class="btn primario hm-btn" href="#winner-partida">Nova partida</a><a class="btn hm-btn" href="#winner-torneio-novo">Novo torneio</a>${wnPromptInstalar && !wnInstalado() ? '<button type="button" class="btn hm-btn" id="h-inst">Instalar app</button>' : ''}</div></div>
       <div class="wn-resumo"><div><b>${at.length}</b><span>atletas</span></div><div><b>${W.partidas.length}</b><span>partidas</span></div><div><b>${W.torneios.length}</b><span>torneios</span></div><div><b>${W.torneios.filter(t => t.status === 'encerrada').length}</b><span>campeões</span></div></div>
       ${at.length < 2 ? wnVazioAtletas() : `
       <section class="secao"><div class="linha" style="justify-content:space-between"><h2>Top do ranking</h2><a class="btn pequeno" href="#winner-ranking">Ver ranking</a></div>
         <div class="lista">${rank.slice(0, 5).map((r, i) => `<a class="item hist" href="#winner-perfil-${esc(r.a.id)}"><div class="wn-pos">${i + 1}</div><div class="wn-mini">${wnAv(r.a)}</div><div class="info"><strong>${wnFlag(r.a)} ${esc(wnNome(r.a))}</strong><small>${r.j} jogos · ${r.v}V ${r.e}E ${r.d}D${r.tit ? ' · 🏆 ' + r.tit : ''}</small></div><div class="wn-rt"><b>${r.rating}</b><small>pts</small></div></a>`).join('')}</div></section>`}
       ${and.length ? `<section class="secao"><h2>Torneios em andamento</h2><div class="lista">${and.map(t => { const tot = t.fases.reduce((x, f) => x + f.jogos.length, 0), ok = t.fases.reduce((x, f) => x + f.jogos.filter(j => j.res).length, 0); return `<a class="item hist" href="#winner-torneio-${esc(t.id)}"><div class="info"><strong>${esc(t.nome)}</strong><small>${t.clubes.length} atletas · ${ok}/${tot} jogos</small></div><span class="chip proxima">Em andamento</span></a>`; }).join('')}</div></section>` : ''}
       ${ult.length ? `<section class="secao"><div class="linha" style="justify-content:space-between"><h2>Últimas partidas</h2><a class="btn pequeno" href="#winner-historico">Histórico</a></div><div class="lista">${ult.map(wnItemPartida).join('')}</div></section>` : ''}`;
-    c.addEventListener('click', e => { const b = e.target.closest('[data-wn-gerar]'); if (b) { wnGerarVarios(Number(b.dataset.wnGerar)); UI.toast('Atletas gerados'); desenhar(false); } });
+    c.addEventListener('click', async e => { const b = e.target.closest('[data-wn-gerar]'); if (b) { wnGerarVarios(Number(b.dataset.wnGerar)); UI.toast('Atletas gerados'); desenhar(false); return; } if (e.target.closest('#h-inst') && wnPromptInstalar) { const pe = wnPromptInstalar; wnPromptInstalar = null; try { await pe.prompt(); await pe.userChoice; } catch (err) { /* cancelado */ } desenhar(false); } });
   }
   function wnItemPartida(p) {
     const esc = UI.esc, pen = p.penaltis ? ` (${p.penaltis[0]}-${p.penaltis[1]} pên.)` : '';
@@ -2293,32 +1912,23 @@
     return `<div class="wn-chave-wrap"><div class="wn-chave" style="--cols:${cols.length}">${cols.join('')}</div></div>`;
   }
 
-  const WN_FORM = { mata: 'Mata-mata', liga: 'Pontos corridos', grupos: 'Grupos + mata-mata', suico: 'Sistema suíço', dupla: 'Eliminação dupla', champions36: 'Champions League (36)', dupla: 'Eliminação dupla', final4: 'Final Four', triangular: 'Triangular', quadrangular: 'Quadrangular', copa: 'Copa Nacional', supercopa: 'Supercopa' };
+  const WN_FORM = { mata: 'Mata-mata', liga: 'Pontos corridos', grupos: 'Grupos + mata-mata' };
   function wnTorneios(c) {
     const esc = UI.esc, W = WStore.get(), l = W.torneios.filter(t => !t.liga).reverse();
     c.innerHTML = wnTitulo('Torneios', 'Chaves de mata-mata, pontos corridos ou grupos com mata-mata. Para ligas com divisões, use a aba Ligas.') + `<div class="barra-topo"><a class="btn primario" href="#winner-torneio-novo">Novo torneio</a></div>` + (l.length ? `<div class="lista">${l.map(t => {
       const tot = t.fases.reduce((x, f) => x + f.jogos.length, 0), ok = t.fases.reduce((x, f) => x + f.jogos.filter(j => j.res).length, 0), camp = t.campeaoId ? wnAtleta(t.campeaoId) : null;
       return `<a class="item hist" href="#winner-torneio-${esc(t.id)}"><div class="info"><strong>${esc(t.nome)}</strong><small>${esc(WN_FORM[t.formato] || 'Torneio')} · ${t.clubes.length} atletas · ${ok}/${tot} jogos${t.status === 'encerrada' ? ' · 🏆 ' + esc(camp ? wnNome(camp) : ((t.nomes[t.campeaoId] || {}).nome || 'campeão')) : ''}</small></div><span class="chip ${t.status === 'encerrada' ? '' : 'proxima'}">${t.status === 'encerrada' ? 'Encerrado' : 'Em andamento'}</span></a>`;
     }).join('')}</div>` : UI.vazio('Nenhum torneio ainda', 'Escolha os atletas e o formato; o Renniw monta os confrontos automaticamente.', null, ''));
-
   }
 
-  function wnCopas(c) {
-    const esc = UI.esc, W = WStore.get();
-    const copas = W.torneios.filter(t => !t.liga && (t.subtipo === 'copa' || t.formato === 'copa')).slice().reverse();
-    const supers = W.torneios.filter(t => !t.liga && (t.subtipo === 'supercopa' || t.formato === 'supercopa')).slice().reverse();
-    const item = t => { const total = t.fases.reduce((n, f) => n + f.jogos.length, 0), feitos = t.fases.reduce((n, f) => n + f.jogos.filter(j => j.res).length, 0), camp = t.campeaoId ? wnAtleta(t.campeaoId) : null; return `<a class="item hist" href="#winner-torneio-${esc(t.id)}"><div class="info"><strong>${esc(t.nome)}</strong><small>${t.clubes.length} participantes · ${feitos}/${total} jogos${t.status === 'encerrada' ? ' · 🏆 ' + esc(camp ? wnNome(camp) : ((t.nomes[t.campeaoId] || {}).nome || 'campeão')) : ''}</small></div><span class="chip ${t.status === 'encerrada' ? '' : 'proxima'}">${t.status === 'encerrada' ? 'Encerrada' : 'Em andamento'}</span></a>`; };
-    c.innerHTML = wnTitulo('Copas', 'Acompanhe a Copa Nacional e as Supercopas. Abra qualquer edição para conferir participantes, confrontos e resultados.') + `<div class="barra-topo"><a class="btn primario" href="#winner-copa-nova">Nova Copa Nacional</a></div><section class="secao"><h2>🏆 Copas Nacionais</h2>${copas.length ? `<div class="lista">${copas.map(item).join('')}</div>` : UI.vazio('Nenhuma Copa Nacional', 'Crie sua primeira Copa Nacional para começar a construir a história.', null, '')}</section><section class="secao"><h2>🥇 Supercopas</h2>${supers.length ? `<div class="lista">${supers.map(item).join('')}</div>` : '<p class="dica">As Supercopas criadas a partir de uma liga e de uma Copa Nacional aparecerão aqui.</p>'}</section>`;
-  }
-
-  const wnTF = { nome: '', sel: null, formato: 'mata', seed: 'sorteio', idaVolta: false, terceiro: false, returno: false, grupos: 2, classificam: 2, rodadas: 5, ordem: [], gmap: {} };
+  const wnTF = { nome: '', sel: null, formato: 'mata', seed: 'sorteio', idaVolta: false, terceiro: false, returno: false, grupos: 2, classificam: 2, ordem: [], gmap: {} };
   const wnNomesMapa = ids => { const m = {}; ids.forEach(i => { const a = wnAtleta(i); if (a) m[i] = { nome: wnNome(a) }; }); return m; };
   function wnTorneioNovo(c) {
     const esc = UI.esc, W = WStore.get(), at = W.atletas.slice().sort((a, b) => wnOvr(b) - wnOvr(a));
     if (at.length < 2) { c.innerHTML = `<a class="voltar" href="#winner-torneios">← Torneios</a>` + wnTitulo('Novo torneio') + wnVazioAtletas(); c.addEventListener('click', e => { const b = e.target.closest('[data-wn-gerar]'); if (b) { wnGerarVarios(Number(b.dataset.wnGerar)); desenhar(false); } }); return; }
     if (!wnTF.sel) wnTF.sel = new Set(); wnTF.sel = new Set([...wnTF.sel].filter(id => wnAtleta(id)));
     const sel = wnTF.sel, F = wnTF;
-    if (['liga','suico','champions36','dupla','triangular','quadrangular','supercopa','copa','final4'].includes(F.formato) && F.seed === 'manual') F.seed = 'sorteio';
+    if (F.formato === 'liga' && F.seed === 'manual') F.seed = 'sorteio';
     function sincronizar() {
       F.ordem = F.ordem.filter(id => sel.has(id)); at.forEach(a => { if (sel.has(a.id) && !F.ordem.includes(a.id)) F.ordem.push(a.id); });
       Object.keys(F.gmap).forEach(id => { if (!sel.has(id)) delete F.gmap[id]; });
@@ -2327,19 +1937,16 @@
     const idsOrdenados = () => F.formato === 'mata' && F.seed === 'manual' ? F.ordem.filter(id => sel.has(id)) : F.seed === 'ordem' ? at.filter(a => sel.has(a.id)).map(a => a.id) : [...sel];
     function wnSpecs() {
       const manual = F.seed === 'manual';
-      if (F.formato === 'dupla') return [specSegura({ tipo: 'dupla', nome: 'Eliminação dupla' })];
-      if (F.formato === 'champions36') return [specSegura({ tipo: 'suico', rodadas: 8, nome: 'Fase de liga · Champions' })];
-      if (F.formato === 'suico') return [specSegura({ tipo: 'suico', rodadas: F.rodadas, nome: 'Sistema suíço' })];
-      if (['mata', 'final4', 'copa', 'supercopa'].includes(F.formato)) return [specSegura({ tipo: 'mata', idaVolta: F.idaVolta, terceiro: F.terceiro, seed: F.seed, nome: F.formato === 'final4' ? 'Final Four' : F.formato === 'supercopa' ? 'Supercopa' : F.formato === 'copa' ? 'Copa Nacional' : 'Mata-mata' })];
-      if (['liga', 'triangular', 'quadrangular'].includes(F.formato)) return [specSegura({ tipo: 'liga', returno: F.returno, seed: F.seed, nome: F.formato === 'triangular' ? 'Triangular' : F.formato === 'quadrangular' ? 'Quadrangular' : 'Pontos corridos' })];
+      if (F.formato === 'mata') return [specSegura({ tipo: 'mata', idaVolta: F.idaVolta, terceiro: F.terceiro, seed: F.seed })];
+      if (F.formato === 'liga') return [specSegura({ tipo: 'liga', returno: F.returno, seed: F.seed })];
       return [specSegura({ tipo: 'liga', grupos: F.grupos, classificam: F.classificam, returno: F.returno, seed: F.seed, manual: manual ? F.gmap : null }), specSegura({ tipo: 'mata', idaVolta: F.idaVolta, terceiro: F.terceiro })];
     }
     function montar() {
       sincronizar();
       const n = sel.size, specs = wnSpecs(), pedido = { nome: F.nome, tipo: F.formato === 'liga' ? 'liga' : 'copa', clubes: idsOrdenados(), specs };
-      const erro = n < 2 ? 'Escolha pelo menos 2 atletas.' : F.formato === 'supercopa' && n !== 2 ? 'A Supercopa precisa de exatamente 2 participantes.' : F.formato === 'champions36' && n !== 36 ? 'A Champions League precisa de exatamente 36 participantes.' : F.formato === 'dupla' && ![4,8,16,32].includes(n) ? 'A eliminação dupla aceita 4, 8, 16 ou 32 participantes.' : F.formato === 'final4' && n !== 4 ? 'O Final Four precisa de exatamente 4 participantes.' : F.formato === 'triangular' && n !== 3 ? 'O triangular precisa de exatamente 3 participantes.' : F.formato === 'quadrangular' && n !== 4 ? 'O quadrangular precisa de exatamente 4 participantes.' : F.formato === 'copa' && n < 2 ? 'A Copa Nacional precisa de pelo menos 2 participantes.' : validarCompeticao(pedido);
+      const erro = n < 2 ? 'Escolha pelo menos 2 atletas.' : validarCompeticao(pedido);
       const opt = (o, v) => Object.entries(o).map(([k, t]) => `<option value="${k}" ${String(v) === k ? 'selected' : ''}>${esc(t)}</option>`).join('');
-      const seeds = Object.assign({ sorteio: 'Sorteio (aleatório)', ordem: 'Cabeças de chave (por overall)' }, ['mata','grupos'].includes(F.formato) ? { manual: 'Manual (eu escolho)' } : {});
+      const seeds = Object.assign({ sorteio: 'Sorteio (aleatório)', ordem: 'Cabeças de chave (por overall)' }, F.formato === 'liga' ? {} : { manual: 'Manual (eu escolho)' });
       let manualHtml = '';
       if (F.seed === 'manual' && F.formato === 'mata' && n >= 2) {
         const o = F.ordem.filter(id => sel.has(id)), byes = (() => { let t2 = 2; while (t2 < o.length) t2 *= 2; return t2 - o.length; })();
@@ -2349,12 +1956,11 @@
         manualHtml = `<section class="secao"><div class="linha" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h2>Grupos</h2><div class="linha"><button type="button" class="btn pequeno" data-m="gsort">Sortear</button><button type="button" class="btn pequeno" data-m="govr">Por overall</button></div></div>
           <div class="wn-lista-sel">${[...sel].map(id => wnAtleta(id)).sort((x, y) => wnOvr(y) - wnOvr(x)).map(a => `<label class="wn-opt"><span>${wnFlag(a)} ${esc(wnNome(a))}</span>${wnOvrChip(wnOvr(a))}<select data-g="${esc(a.id)}" style="width:auto;min-height:34px"><option value="">–</option>${Array.from({ length: F.grupos }, (_, g) => `<option value="${g}" ${F.gmap[a.id] === g ? 'selected' : ''}>Grupo ${String.fromCharCode(65 + g)}</option>`).join('')}</select></label>`).join('')}</div></section>`;
       }
-      c.innerHTML = `<a class="voltar" href="${F.formato === 'copa' ? '#winner-copas' : '#winner-torneios'}">← ${F.formato === 'copa' ? 'Copas' : 'Torneios'}</a>${wnTitulo('Novo torneio')}
+      c.innerHTML = `<a class="voltar" href="#winner-torneios">← Torneios</a>${wnTitulo('Novo torneio')}
         <section class="secao"><div class="campos"><div class="campo"><label>Nome<input type="text" id="t-nome" maxlength="40" value="${esc(F.nome)}" placeholder="Ex.: Copa Renniw"></label></div>
           <div class="campo"><label>Formato<select id="t-fmt">${opt(WN_FORM, F.formato)}</select></label></div>
           <div class="campo"><label>Como montar<select id="t-seed">${opt(seeds, F.seed)}</select></label></div>
-          ${F.formato === 'grupos' ? `<div class="campo"><label>Grupos<input type="number" id="t-g" min="2" max="8" value="${F.grupos}" inputmode="numeric"></label></div><div class="campo"><label>Classificam por grupo<input type="number" id="t-c" min="1" max="8" value="${F.classificam}" inputmode="numeric"></label></div>` : ''}
-          ${F.formato === 'suico' ? `<div class="campo"><label>Rodadas<input type="number" id="t-rd" min="3" max="12" value="${F.rodadas}" inputmode="numeric"></label></div>` : ''}</div>
+          ${F.formato === 'grupos' ? `<div class="campo"><label>Grupos<input type="number" id="t-g" min="2" max="8" value="${F.grupos}" inputmode="numeric"></label></div><div class="campo"><label>Classificam por grupo<input type="number" id="t-c" min="1" max="8" value="${F.classificam}" inputmode="numeric"></label></div>` : ''}</div>
           ${F.formato !== 'liga' ? `<label class="wn-chk"><input type="checkbox" id="t-iv" ${F.idaVolta ? 'checked' : ''}> Ida e volta (exceto a final)</label><label class="wn-chk"><input type="checkbox" id="t-3" ${F.terceiro ? 'checked' : ''}> Disputa de 3º lugar</label>` : ''}
           ${F.formato !== 'mata' ? `<label class="wn-chk"><input type="checkbox" id="t-ret" ${F.returno ? 'checked' : ''}> Turno e returno</label>` : ''}</section>
         <section class="secao"><div class="linha" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><h2>Participantes <span class="chip">${n}</span></h2><div class="linha" style="gap:6px;flex-wrap:wrap"><button type="button" class="btn pequeno" data-q="todos">Todos</button><button type="button" class="btn pequeno" data-q="8">Top 8</button><button type="button" class="btn pequeno" data-q="16">Top 16</button><button type="button" class="btn pequeno" data-q="a8">8 aleatórios</button><button type="button" class="btn pequeno" data-q="a16">16 aleatórios</button><button type="button" class="btn pequeno" data-q="nenhum">Limpar</button></div></div>
@@ -2369,8 +1975,8 @@
       const t = e.target;
       if (t.dataset.id) { t.checked ? sel.add(t.dataset.id) : sel.delete(t.dataset.id); montar(); return; }
       if (t.dataset.g !== undefined && t.dataset.g !== '') { if (t.value === '') delete F.gmap[t.dataset.g]; else F.gmap[t.dataset.g] = Number(t.value); montar(); return; }
-      if (t.id === 't-fmt') { F.formato = t.value; if (!['mata','grupos'].includes(F.formato) && F.seed === 'manual') F.seed = 'sorteio'; } else if (t.id === 't-seed') { F.seed = t.value; if (F.seed === 'manual' && F.formato === 'grupos') gruposAuto('rand'); }
-      else if (t.id === 't-g') { F.grupos = Math.max(2, Math.min(8, Math.round(Number(t.value) || 2))); F.gmap = {}; if (F.seed === 'manual') gruposAuto('rand'); } else if (t.id === 't-c') F.classificam = Math.max(1, Math.min(8, Math.round(Number(t.value) || 1))); else if (t.id === 't-rd') F.rodadas = Math.max(3, Math.min(12, Math.round(Number(t.value) || 5)));
+      if (t.id === 't-fmt') { F.formato = t.value; if (F.formato === 'liga' && F.seed === 'manual') F.seed = 'sorteio'; } else if (t.id === 't-seed') { F.seed = t.value; if (F.seed === 'manual' && F.formato === 'grupos') gruposAuto('rand'); }
+      else if (t.id === 't-g') { F.grupos = Math.max(2, Math.min(8, Math.round(Number(t.value) || 2))); F.gmap = {}; if (F.seed === 'manual') gruposAuto('rand'); } else if (t.id === 't-c') F.classificam = Math.max(1, Math.min(8, Math.round(Number(t.value) || 1)));
       else if (t.id === 't-iv') F.idaVolta = t.checked; else if (t.id === 't-3') F.terceiro = t.checked; else if (t.id === 't-ret') F.returno = t.checked; else return;
       montar();
     });
@@ -2381,10 +1987,10 @@
       if (m) { if (m.dataset.m === 'sortear') F.ordem = embaralhar(F.ordem.filter(id => sel.has(id))); else if (m.dataset.m === 'gsort') gruposAuto('rand'); else gruposAuto('ovr'); montar(); return; }
       if (up || dn) { const id = (up || dn).dataset.up || (up || dn).dataset.dn, i = F.ordem.indexOf(id), j = up ? i - 1 : i + 1; if (i >= 0 && j >= 0 && j < F.ordem.length) { [F.ordem[i], F.ordem[j]] = [F.ordem[j], F.ordem[i]]; montar(); } return; }
       if (e.target.closest('#t-criar')) {
-        const ids = idsOrdenados(), pedido = { nome: F.nome, tipo: ['liga','triangular','quadrangular'].includes(F.formato) ? 'liga' : 'copa', clubes: ids, specs: wnSpecs() };
+        const ids = idsOrdenados(), pedido = { nome: F.nome, tipo: F.formato === 'liga' ? 'liga' : 'copa', clubes: ids, specs: wnSpecs() };
         if (validarCompeticao(pedido)) return;
-        const comp = criarCompeticao(Object.assign(pedido, { nome: F.nome.trim() || (F.formato === 'copa' ? 'Copa Nacional' : F.formato === 'supercopa' ? 'Supercopa' : F.formato === 'final4' ? 'Final Four' : 'Torneio ' + (WStore.get().torneios.length + 1)), nomes: wnNomesMapa(ids) }));
-        comp.winner = true; comp.subtipo = F.formato; comp.formato = F.formato; if (F.formato === 'champions36') comp.nome = F.nome.trim() || 'Champions League';
+        const comp = criarCompeticao(Object.assign(pedido, { nome: F.nome.trim() || ('Torneio ' + (WStore.get().torneios.length + 1)), nomes: wnNomesMapa(ids) }));
+        comp.winner = true;
         WStore.update(w => { w.torneios.push(comp); }); WStore.salvarAgora(); F.nome = ''; UI.toast('Torneio criado'); location.hash = 'winner-torneio-' + comp.id;
       }
     });
@@ -2398,47 +2004,35 @@
     const nomeDe = i => { const a = wnAtleta(i); return a ? wnFlag(a) + ' ' + esc(wnNome(a)) : esc(nomeA(i)); };
     function jogoLinha(f, j) {
       const r = j.res, pen = r && r.penaltis ? ` <small>(${r.penaltis[0]}-${r.penaltis[1]})</small>` : '';
-      const jog = t.status === 'andamento' && jogosJogaveis(t, f.tipo === 'liga' && f.grupos.length > 1 ? j.grupo : null).some(x => x.id === j.id);
+      const jog = t.status === 'andamento' && jogosJogaveis(t).some(x => x.id === j.id);
       return `<div class="wn-jogo ${r ? 'feito' : ''}"><span class="n">${nomeDe(j.casa)}</span><span class="pl">${r ? (r.partidaId ? `<a href="#winner-jogo-${esc(r.partidaId)}">${r.placar[0]} x ${r.placar[1]}</a>` : r.placar[0] + ' x ' + r.placar[1]) + pen : 'x'}</span><span class="n d">${nomeDe(j.fora)}</span>${jog ? `<button type="button" class="btn pequeno" data-sim="${esc(j.id)}">Simular</button>` : ''}</div>`;
     }
     function fase(f) {
-      if (f.tipo === 'dupla') { const etapas = [...new Set(f.jogos.map(j => j.rodada))].sort((a,b)=>a-b); return `<section class="secao"><h2>${esc(f.nome)}</h2>${etapas.map(rd => `<div class="wn-rod"><b>Etapa ${rd}</b>${f.jogos.filter(j=>j.rodada===rd).map(j=>`<small class="dica">${esc(j.duplaLabel || 'Chave')}</small>`+jogoLinha(f,j)).join('')}</div>`).join('')}</section>`; }
-      if (f.tipo === 'liga' || f.tipo === 'suico') {
-        return `<section class="secao"><h2>${esc(f.nome)}${f.tipo === 'suico' ? ` · ${f.rodadasTotal || 5} rodadas` : ''}</h2>${f.grupos.map((g, gi) => {
+      if (f.tipo === 'liga') {
+        return `<section class="secao"><h2>${esc(f.nome)}</h2>${f.grupos.map((g, gi) => {
           const tab = tabelaDe(f.jogos.filter(j => j.grupo === gi || (f.grupos.length === 1 && j.grupo == null)), g.clubes, t.regras);
           const rodadas = [...new Set(f.jogos.filter(j => (f.grupos.length === 1 ? true : j.grupo === gi)).map(j => j.rodada))].sort((a, b) => a - b);
-          const grupoPodeSimular = t.status === 'andamento' && f.tipo === 'liga' && f.grupos.length > 1 && jogosJogaveis(t, gi).length;
-          return `<h3 class="wn-h3">${esc(g.nome)}</h3>${grupoPodeSimular ? `<div class="linha" style="margin:6px 0 10px"><button type="button" class="btn pequeno" data-a="grupo" data-g="${gi}">Simular próxima rodada deste grupo</button></div>` : ''}<div class="wn-tab-wrap"><table class="wn-tab"><thead><tr><th>#</th><th>Atleta</th><th>P</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th></tr></thead><tbody>${tab.map((r, i) => `<tr><td>${i + 1}</td><td><a href="#winner-perfil-${esc(r.id)}">${nomeDe(r.id)}</a></td><td><b>${r.pts}</b></td><td>${r.j}</td><td>${r.v}</td><td>${r.e}</td><td>${r.d}</td><td>${r.sg}</td></tr>`).join('')}</tbody></table></div>
+          return `<h3 class="wn-h3">${esc(g.nome)}</h3><div class="wn-tab-wrap"><table class="wn-tab"><thead><tr><th>#</th><th>Atleta</th><th>P</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th></tr></thead><tbody>${tab.map((r, i) => `<tr><td>${i + 1}</td><td><a href="#winner-perfil-${esc(r.id)}">${nomeDe(r.id)}</a></td><td><b>${r.pts}</b></td><td>${r.j}</td><td>${r.v}</td><td>${r.e}</td><td>${r.d}</td><td>${r.sg}</td></tr>`).join('')}</tbody></table></div>
             <details data-k="${esc(t.id)}:g${gi}" ${wnAbertos.has(t.id + ':g' + gi) ? 'open' : ''}><summary>Jogos (${f.jogos.filter(j => f.grupos.length === 1 || j.grupo === gi).length})</summary>${rodadas.map(rd => `<div class="wn-rod"><b>Rodada ${rd}</b>${f.jogos.filter(j => (f.grupos.length === 1 || j.grupo === gi) && j.rodada === rd).map(j => jogoLinha(f, j)).join('')}</div>`).join('')}</details>`;
         }).join('')}</section>`;
       }
       return `<section class="secao"><h2>${esc(f.nome)}</h2>${wnChave(t, f, nomeA, nomeDe)}<details data-k="${esc(t.id)}:m" ${wnAbertos.has(t.id + ':m') ? 'open' : ''}><summary>Lista de jogos</summary>${f.rodadasMata.map((rod, ri) => `<div class="wn-rod"><b>${esc(rod.nome)}</b>${rod.diretos.length ? `<small class="dica">Avançam direto: ${rod.diretos.map(nomeA).map(esc).join(', ')}</small>` : ''}${f.jogos.filter(j => j.rodada === ri + 1).map(j => { const cf = rod.confrontos.find(x => x.id === j.conf); return (cf && cf.terceiro ? '<small class="dica">3º lugar</small>' : j.perna ? `<small class="dica">${j.perna === 1 ? 'Ida' : 'Volta'}</small>` : '') + jogoLinha(f, j); }).join('')}</div>`).join('')}</details></section>`;
     }
     const camp = t.campeaoId, tot = t.fases.reduce((x, f) => x + f.jogos.length, 0), ok = t.fases.reduce((x, f) => x + f.jogos.filter(j => j.res).length, 0);
-    const statComp = new Map();
-    WStore.get().partidas.filter(p => p.torneioId === t.id).forEach(p => {
-      [p.a, p.b].forEach((lado, i) => {
-        const x = statComp.get(lado.id) || { id: lado.id, nome: lado.nome, j: 0, v: 0, e: 0, d: 0, gp: 0, gc: 0, gols: 0, ass: 0, defesas: 0, amarelos: 0, vermelhos: 0 };
-        const es = p.est && p.est[i] || {}; x.j++; x.gp += p.placar[i] || 0; x.gc += p.placar[1-i] || 0; x.gols += es.golsAt || 0; x.ass += es.ass || 0; x.defesas += es.defesas || 0; x.amarelos += es.amarelos || 0; x.vermelhos += es.vermelhos || 0;
-        if (p.vencedor === i) x.v++; else if (p.vencedor == null) x.e++; else x.d++; statComp.set(lado.id, x);
-      });
-    });
-    const statsHtml = statComp.size ? `<section class="secao"><h2>Estatísticas da competição</h2><div class="wn-tab-wrap"><table class="wn-tab"><thead><tr><th>Atleta</th><th>J</th><th>V</th><th>Gols</th><th>Assist.</th><th>Defesas</th><th>CA</th><th>CV</th></tr></thead><tbody>${[...statComp.values()].sort((a,b)=>b.gols-a.gols||b.ass-a.ass||b.v-a.v).map(x=>`<tr><td><a href="#winner-perfil-${esc(x.id)}">${esc(x.nome)}</a></td><td>${x.j}</td><td>${x.v}</td><td><b>${x.gols}</b></td><td>${x.ass}</td><td>${x.defesas}</td><td>${x.amarelos}</td><td>${x.vermelhos}</td></tr>`).join('')}</tbody></table></div><p class="dica">Dados calculados a partir das partidas registradas nesta competição.</p></section>` : '';
     c.innerHTML = `<a class="voltar" href="${t.liga ? '#winner-liga-' + esc(t.liga.id) : '#winner-torneios'}">← ${t.liga ? 'Liga' : 'Torneios'}</a>${wnTitulo(t.nome, (WN_FORM[t.formato] || 'Torneio') + ' · ' + t.clubes.length + ' atletas · ' + ok + '/' + tot + ' jogos')}
       ${t.status === 'encerrada' ? `<div class="wn-campeao"><span>🏆 Campeão</span><strong>${camp ? nomeDe(camp) : '—'}</strong></div>` : `<div class="linha" style="gap:8px;flex-wrap:wrap;margin-bottom:12px"><button type="button" class="btn primario" data-a="prox">Simular próximo jogo</button><button type="button" class="btn" data-a="rod">Simular rodada</button><button type="button" class="btn" data-a="tudo">Simular tudo</button></div>`}
       ${[...t.fases].reverse().map(fase).join('')}
-      ${statsHtml}
       ${t.liga ? '' : '<div class="linha" style="margin-top:14px;gap:8px"><button type="button" class="btn" data-a="ren">Renomear</button><button type="button" class="btn perigo" data-a="del">Excluir torneio</button></div>'}`;
     c.addEventListener('toggle', e => { const k = e.target && e.target.dataset && e.target.dataset.k; if (k) { if (e.target.open) wnAbertos.add(k); else wnAbertos.delete(k); } }, true);
-    function rodar(modo, grupo = null) {
+    function rodar(modo) {
       let n = 0, camp = null, guard = 0;
       while (guard++ < 2000) {
         const cur = WStore.get().torneios.find(x => x.id === id); if (!cur || cur.status !== 'andamento') break;
-        const js = jogosJogaveis(cur, modo === 'grupo' ? grupo : null); if (!js.length) break;
-        const alvo = (modo === 'rod' || modo === 'grupo') ? js : [js[0]];
+        const js = jogosJogaveis(cur); if (!js.length) break;
+        const alvo = modo === 'rod' ? js : [js[0]];
         let falhou = false;
         for (const j of alvo) { const r = wnSimularJogoTorneio(id, j.id); if (!r || r.erro) { falhou = true; if (r && r.erro) UI.toast(r.erro, true); break; } n++; if (r.campeao) camp = r.campeao; }
-        if (falhou || modo === 'prox' || modo === 'rod' || modo === 'grupo') break;
+        if (falhou || modo === 'prox' || modo === 'rod') break;
       }
       WStore.salvarAgora();
       if (camp) { const a = wnAtleta(camp); UI.toast('🏆 ' + (a ? wnNome(a) : 'Campeão') + ' é campeão!'); }
@@ -2449,9 +2043,9 @@
       if (s) { const y = window.scrollY; wnSimularJogoTorneio(id, s.dataset.sim); WStore.salvarAgora(); wnTorneio(c, id); window.scrollTo(0, y); return; }
       const b = e.target.closest('[data-a]'); if (!b) return;
       const a = b.dataset.a;
-      if (a === 'prox' || a === 'rod' || a === 'tudo' || a === 'grupo') {
+      if (a === 'prox' || a === 'rod' || a === 'tudo') {
         if (a === 'tudo' && !(await UI.perguntar('Simular até o fim?', 'Todos os jogos pendentes serão simulados.', 'Simular', false))) return;
-        const y = window.scrollY; rodar(a, a === 'grupo' ? Number(b.dataset.g) : null); desenhar(false); window.scrollTo(0, y);
+        const y = window.scrollY; rodar(a); desenhar(false); window.scrollTo(0, y);
       } else if (a === 'ren') {
         const j = UI.abrir(`<h3>Renomear torneio</h3><div class="campo"><label>Nome<input type="text" id="rn" maxlength="40" value="${esc(t.nome)}"></label></div><div class="linha"><button class="btn" id="rn-c">Cancelar</button><button class="btn primario" id="rn-ok">Salvar</button></div>`);
         j.querySelector('#rn-c').addEventListener('click', UI.fechar);
@@ -2482,13 +2076,31 @@
   }
 
   /* ---------- Renniw: dados ---------- */
+  /* ---------- Renniw: instalar como app ---------- */
+  let wnPromptInstalar = null;
+  const wnInstalado = () => { try { return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; } catch (e) { return false; } };
+  window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); wnPromptInstalar = e; if (/^#?(winner)?$/.test(location.hash) || /winner-dados/.test(location.hash)) desenhar(false); });
+  window.addEventListener('appinstalled', () => { wnPromptInstalar = null; try { UI.toast('Renniw instalado'); } catch (e) { /* sem aviso */ } });
+  function wnInstalarHtml() {
+    const web = /^https?:$/.test(location.protocol), seguro = window.isSecureContext, ios = /iphone|ipad|ipod/i.test(navigator.userAgent), inst = wnInstalado();
+    let corpo;
+    if (inst) corpo = '<p>✅ O Renniw já está rodando como app neste aparelho.</p>';
+    else if (wnPromptInstalar) corpo = '<p>Pronto para instalar neste aparelho.</p><button type="button" class="btn primario" id="d-inst">Instalar o Renniw</button>';
+    else if (!web) corpo = '<p class="erro">Você abriu o Renniw como arquivo. Para instalar, ele precisa estar publicado em um endereço <b>https://</b> (GitHub Pages, Netlify, Vercel…). Veja o LEIA-ME.txt do pacote do app.</p>';
+    else if (!seguro) corpo = '<p class="erro">Este endereço não é seguro (http). A instalação só funciona em <b>https://</b>.</p>';
+    else if (ios) corpo = '<p>No iPhone/iPad, use o <b>Safari</b>: toque em <b>Compartilhar</b> (quadrado com seta) e depois em <b>Adicionar à Tela de Início</b>.</p>';
+    else corpo = '<p>No Chrome do Android: toque nos <b>três pontinhos ⋮</b> e escolha <b>Instalar app</b> (ou <b>Adicionar à tela inicial</b>). No computador, use o ícone de instalar na barra de endereço. Se a opção não aparecer, navegue um pouco pelo app e tente de novo.</p>';
+    return `<section class="secao"><h2>Instalar o app</h2>${corpo}</section>`;
+  }
   function wnDados(c) {
     const W = WStore.get();
     c.innerHTML = wnTitulo('Dados do Renniw', 'Tudo fica salvo neste aparelho. Exporte para fazer backup ou levar para outro lugar.') + `
       <section class="secao"><h2>Resumo</h2><p>${W.atletas.length} atletas · ${W.partidas.length} partidas · ${W.torneios.length} torneios</p></section>
       <section class="secao"><h2>Backup</h2><div class="linha" style="gap:8px;flex-wrap:wrap"><button type="button" class="btn primario" id="d-exp">Exportar Renniw</button><button type="button" class="btn" id="d-imp">Importar Renniw</button></div><input type="file" id="d-file" accept=".json,application/json" hidden></section>
+      ${wnInstalarHtml()}
       <section class="secao"><h2>Ajustes</h2><div class="campo"><label>Fator sorte padrão<select id="d-sorte">${[['baixa', 'Baixa'], ['media', 'Média'], ['alta', 'Alta']].map(([k, v]) => `<option value="${k}" ${W.cfg.sorte === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label></div></section>
       <section class="secao"><h2>Zona de risco</h2><p class="dica">Apaga todos os atletas, partidas e torneios.</p><button type="button" class="btn perigo" id="d-del">Apagar dados do Renniw</button></section>`;
+    const bi = c.querySelector('#d-inst'); if (bi) bi.addEventListener('click', async () => { const e = wnPromptInstalar; if (!e) return; wnPromptInstalar = null; try { await e.prompt(); await e.userChoice; } catch (err) { /* cancelado */ } desenhar(false); });
     c.querySelector('#d-sorte').addEventListener('change', e => { WStore.update(w => { w.cfg.sorte = e.target.value; }); UI.toast('Salvo'); });
     c.querySelector('#d-exp').addEventListener('click', () => wnExportar(WStore.exportarJSON(), 'renniw-' + new Date().toISOString().slice(0, 10) + '.json'));
     const arq = c.querySelector('#d-file');
@@ -2557,27 +2169,19 @@
   function wnLigaSpecs(d) {
     const top = [0, 2, 4, 8, 16].includes(d.mataTop) ? d.mataTop : 0;
     const specs = [specSegura({ tipo: 'liga', returno: !!d.returno, grupos: 1, classificam: top || 2, seed: 'sorteio', nome: 'Pontos corridos' })];
-    if (top) specs.push(specSegura({ tipo: 'mata', idaVolta: !!d.idaVolta, nome: 'Mata-mata pelo título' }));
+    if (top) specs.push(specSegura({ tipo: 'mata', idaVolta: !!d.idaVolta, nome: 'Mata-mata' }));
     return specs;
   }
-  const wnTemPlayoffAcesso = d => Number(d.playoffInicio) >= 2 && Number(d.playoffFim) > Number(d.playoffInicio);
   function wnLigaErro(l) {
-    for (let k = 0; k < l.divisoes.length; k++) {
-      const d = l.divisoes[k], ids = d.atletas.filter(wnAtleta);
+    for (const d of l.divisoes) {
+      const ids = d.atletas.filter(wnAtleta);
       if (ids.length < 2) return `A divisão "${d.nome}" precisa de pelo menos 2 atletas.`;
       const e = validarCompeticao({ clubes: ids, specs: wnLigaSpecs(d) }); if (e) return `Divisão "${d.nome}": ${e}`;
-      if (k > 0) {
-        const inicio = Number(d.playoffInicio) || 0, fim = Number(d.playoffFim) || 0;
-        const direto = d.acessoDireto == null ? Number(l.divisoes[k - 1].rebaixam) || 0 : Number(d.acessoDireto) || 0;
-        if ((inicio || fim) && (!wnTemPlayoffAcesso(d) || inicio <= direto || fim > ids.length)) return `Playoffs de acesso de "${d.nome}": escolha posições válidas, acima dos acessos diretos e dentro da divisão.`;
-        const vagas = direto + (wnTemPlayoffAcesso(d) ? 1 : 0);
-        if (vagas !== (Number(l.divisoes[k - 1].rebaixam) || 0)) return `A divisão "${d.nome}" promove ${vagas} atletas (diretos + campeão dos playoffs), mas "${l.divisoes[k - 1].nome}" rebaixa ${(Number(l.divisoes[k - 1].rebaixam) || 0)}. Ajuste os números para combinar.`;
-      }
     }
     return '';
   }
   function wnLigaNovaTemporada(l) {
-    const t = l.temporadas.length + 1, reg = { n: t, comps: {}, acessos: {}, status: 'andamento', campeoes: {}, mov: [] };
+    const t = l.temporadas.length + 1, reg = { n: t, comps: {}, status: 'andamento', campeoes: {}, mov: [] };
     l.divisoes.forEach(d => {
       const ids = d.atletas.filter(wnAtleta);
       const comp = criarCompeticao({ nome: `${l.nome} · ${d.nome} · Temporada ${t}`, tipo: 'liga', clubes: ids, specs: wnLigaSpecs(d), regras: { pv: 3, pe: 1, pd: 0, desempate: 'padrao' }, nomes: wnNomesMapa(ids) });
@@ -2587,46 +2191,15 @@
     l.temporadas.push(reg);
   }
   const wnLigaAtual = l => l.temporadas[l.temporadas.length - 1];
-  function wnLigaPrepararPlayoffs(l) {
-    const t = wnLigaAtual(l); if (!t) return;
-    l.divisoes.forEach((d, k) => {
-      if (k === 0 || !wnTemPlayoffAcesso(d) || t.acessos[d.id]) return;
-      const base = wnCompDe(t.comps[d.id]);
-      if (!base || base.status !== 'encerrada') return;
-      const ordem = wnLigaTabela(base);
-      const inicio = Math.max(1, Number(d.playoffInicio) || 0), fim = Math.min(ordem.length, Number(d.playoffFim) || 0);
-      const ids = ordem.slice(inicio - 1, fim);
-      if (ids.length < 2) return;
-      const acesso = criarCompeticao({ nome: `${l.nome} · Playoffs de acesso · ${d.nome} · T${t.n}`, tipo: 'liga', clubes: ids, specs: [specSegura({ tipo: 'mata', seed: 'ordem', nome: 'Playoffs de acesso' })], regras: { pv: 3, pe: 1, pd: 0, desempate: 'padrao' }, nomes: wnNomesMapa(ids) });
-      acesso.winner = true; acesso.ligaAcesso = { id: l.id, div: d.id, temp: t.n };
-      WStore.get().torneios.push(acesso); t.acessos[d.id] = acesso.id;
-    });
-  }
-  const wnLigaTerminou = l => {
-    const t = wnLigaAtual(l);
-    return !!t && l.divisoes.every((d, k) => {
-      const c = wnCompDe(t.comps[d.id]); if (!c || c.status !== 'encerrada') return false;
-      if (k > 0 && wnTemPlayoffAcesso(d)) { const p = wnCompDe(t.acessos && t.acessos[d.id]); return !!p && p.status === 'encerrada'; }
-      return true;
-    });
-  };
+  const wnLigaTerminou = l => { const t = wnLigaAtual(l); return !!t && l.divisoes.every(d => { const c = wnCompDe(t.comps[d.id]); return c && c.status === 'encerrada'; }); };
   const wnLigaTabela = comp => { const f = comp.fases[0]; return tabelaDe(f.jogos, f.grupos[0].clubes, comp.regras).map(r => r.id); };
-  // Calcula quem sobe e desce ao fim da temporada, incluindo o campeão dos playoffs.
+  // Calcula quem sobe e desce ao fim da temporada (sem alterar nada).
   function wnLigaMovimentos(l) {
     const t = wnLigaAtual(l), ordens = l.divisoes.map(d => { const c = wnCompDe(t.comps[d.id]); return c ? wnLigaTabela(c).filter(wnAtleta) : []; });
+    const n = l.divisoes.map((d, k) => { if (k >= l.divisoes.length - 1) return 0; const anterior = k > 0 ? 0 : 0; void anterior; return Math.max(0, Math.min(d.rebaixam | 0, ordens[k].length - 1, ordens[k + 1].length - 1)); });
+    const desce = n.map((x, k) => x ? ordens[k].slice(-x) : []), sobe = n.map((x, k) => x ? ordens[k + 1].slice(0, x) : []);
     const mov = [];
-    for (let k = 0; k < l.divisoes.length - 1; k++) {
-      const cima = l.divisoes[k], baixo = l.divisoes[k + 1];
-      const n = Math.max(0, Math.min(Number(cima.rebaixam) || 0, ordens[k].length - 1, ordens[k + 1].length - 1));
-      const direto = baixo.acessoDireto == null ? n : Math.max(0, Number(baixo.acessoDireto) || 0);
-      const promovidos = ordens[k + 1].slice(0, direto);
-      if (wnTemPlayoffAcesso(baixo)) {
-        const pc = wnCompDe(t.acessos && t.acessos[baixo.id]);
-        if (pc && pc.campeaoId && !promovidos.includes(pc.campeaoId)) promovidos.push(pc.campeaoId);
-      }
-      ordens[k].slice(-n).forEach(id => mov.push({ id, de: cima.id, para: baixo.id, tipo: 'desce' }));
-      promovidos.slice(0, n).forEach(id => mov.push({ id, de: baixo.id, para: cima.id, tipo: 'sobe' }));
-    }
+    n.forEach((x, k) => { desce[k].forEach(id => mov.push({ id, de: l.divisoes[k].id, para: l.divisoes[k + 1].id, tipo: 'desce' })); sobe[k].forEach(id => mov.push({ id, de: l.divisoes[k + 1].id, para: l.divisoes[k].id, tipo: 'sobe' })); });
     return { ordens, mov };
   }
   function wnLigaContinuar(l) {
@@ -2645,18 +2218,18 @@
 
   function wnListaLigas(c) {
     const esc = UI.esc, ls = wnLigas().slice().reverse();
-    c.innerHTML = wnTitulo('Ligas', 'Crie ligas de uma ou várias divisões, com acesso direto, playoffs e rebaixamento opcional.') + `<div class="barra-topo"><a class="btn primario" href="#winner-liga-novo">Nova liga</a></div>` + (ls.length ? `<div class="lista">${ls.map(l => `<a class="item hist" href="#winner-liga-${esc(l.id)}"><div class="info"><strong>${esc(l.nome)}</strong><small>${l.divisoes.length} ${l.divisoes.length === 1 ? 'divisão' : 'divisões'} · ${l.divisoes.reduce((s, d) => s + d.atletas.length, 0)} atletas · temporada ${wnLigaAtual(l) ? wnLigaAtual(l).n : '—'}</small></div><span class="chip ${wnLigaTerminou(l) ? '' : 'proxima'}">${wnLigaTerminou(l) ? 'Fim da temporada' : 'Em andamento'}</span></a>`).join('')}</div>` : UI.vazio('Nenhuma liga ainda', 'Crie divisões com nome próprio, defina quantos sobem, descem e vão ao mata-mata.', null, ''));
+    c.innerHTML = wnTitulo('Ligas', 'Campeonatos com várias divisões, acesso e descenso. Cada temporada termina e você continua a liga com um toque.') + `<div class="barra-topo"><a class="btn primario" href="#winner-liga-novo">Nova liga</a></div>` + (ls.length ? `<div class="lista">${ls.map(l => `<a class="item hist" href="#winner-liga-${esc(l.id)}"><div class="info"><strong>${esc(l.nome)}</strong><small>${l.divisoes.length} divisões · ${l.divisoes.reduce((s, d) => s + d.atletas.length, 0)} atletas · temporada ${wnLigaAtual(l) ? wnLigaAtual(l).n : '—'}</small></div><span class="chip ${wnLigaTerminou(l) ? '' : 'proxima'}">${wnLigaTerminou(l) ? 'Fim da temporada' : 'Em andamento'}</span></a>`).join('')}</div>` : UI.vazio('Nenhuma liga ainda', 'Crie divisões com nome próprio, defina quantos sobem, descem e vão ao mata-mata.', null, ''));
   }
 
   const wnLF = { id: null, nome: '', divisoes: [], atr: {} };
   function wnLigaForm(c, editId) {
     const esc = UI.esc, W = WStore.get(), at = W.atletas.slice().sort((a, b) => wnOvr(b) - wnOvr(a));
-    if (at.length < 2) { c.innerHTML = `<a class="voltar" href="#winner-ligas">← Ligas</a>` + wnTitulo('Nova liga') + wnVazioAtletas(); c.addEventListener('click', e => { const b = e.target.closest('[data-wn-gerar]'); if (b) { wnGerarVarios(Number(b.dataset.wnGerar)); desenhar(false); } }); return; }
+    if (at.length < 4) { c.innerHTML = `<a class="voltar" href="#winner-ligas">← Ligas</a>` + wnTitulo('Nova liga') + wnVazioAtletas(); c.addEventListener('click', e => { const b = e.target.closest('[data-wn-gerar]'); if (b) { wnGerarVarios(Number(b.dataset.wnGerar)); desenhar(false); } }); return; }
     const F = wnLF, liga = editId ? wnLiga(editId) : null;
     if (F.id !== (editId || 'novo')) {
       F.id = editId || 'novo';
-      if (liga) { F.nome = liga.nome; F.divisoes = liga.divisoes.map((d, k) => ({ id: d.id, nome: d.nome, rebaixam: d.rebaixam, acessoDireto: d.acessoDireto == null ? (k > 0 ? (liga.divisoes[k - 1].rebaixam || 0) : 0) : d.acessoDireto, playoffInicio: d.playoffInicio || 0, playoffFim: d.playoffFim || 0, playoffIdaVolta: !!d.playoffIdaVolta, returno: !!d.returno, mataTop: d.mataTop, idaVolta: !!d.idaVolta })); F.atr = {}; liga.divisoes.forEach(d => d.atletas.forEach(id => { F.atr[id] = d.id; })); }
-      else { F.nome = ''; F.divisoes = [{ id: 'd' + novoId(), nome: 'Série A', rebaixam: 2, acessoDireto: 0, playoffInicio: 0, playoffFim: 0, playoffIdaVolta: false, returno: true, mataTop: 0, idaVolta: false }, { id: 'd' + novoId(), nome: 'Série B', rebaixam: 0, acessoDireto: 2, playoffInicio: 0, playoffFim: 0, playoffIdaVolta: false, returno: true, mataTop: 0, idaVolta: false }]; F.atr = {}; }
+      if (liga) { F.nome = liga.nome; F.divisoes = liga.divisoes.map(d => ({ id: d.id, nome: d.nome, rebaixam: d.rebaixam, returno: !!d.returno, mataTop: d.mataTop, idaVolta: !!d.idaVolta })); F.atr = {}; liga.divisoes.forEach(d => d.atletas.forEach(id => { F.atr[id] = d.id; })); }
+      else { F.nome = ''; F.divisoes = [{ id: 'd' + novoId(), nome: 'Série A', rebaixam: 2, returno: true, mataTop: 0, idaVolta: false }, { id: 'd' + novoId(), nome: 'Série B', rebaixam: 0, returno: true, mataTop: 0, idaVolta: false }]; F.atr = {}; }
     }
     const t0 = liga && wnLigaAtual(liga), jogou = !!t0 && liga.divisoes.some(d => { const cc = wnCompDe(t0.comps[d.id]); return cc && cc.fases.some(f => f.jogos.some(j => j.res)); });
     const membrosLivres = !liga || !jogou;
@@ -2667,16 +2240,7 @@
       const rascunho = { divisoes: F.divisoes.map(d => Object.assign({}, d, { atletas: membrosLivres ? at.filter(a => F.atr[a.id] === d.id).map(a => a.id) : ((liga.divisoes.find(x => x.id === d.id) || {}).atletas || []) })) };
       if (!membrosLivres) rascunho.divisoes.forEach(d => { cont[d.id] = d.atletas.length; });
       let erro = !F.nome.trim() ? 'Dê um nome à liga.' : F.divisoes.some(d => !d.nome.trim()) ? 'Toda divisão precisa de um nome.' : wnLigaErro(rascunho);
-      F.divisoes.forEach((d, k) => {
-        if (erro) return;
-        if (k < F.divisoes.length - 1 && d.rebaixam > Math.min(cont[d.id], cont[F.divisoes[k + 1].id]) - 1) erro = `Rebaixados de "${d.nome}": no máximo ${Math.max(0, Math.min(cont[d.id], cont[F.divisoes[k + 1].id]) - 1)}.`;
-        if (k > 0) {
-          const direto = Number(d.acessoDireto) || 0, ini = Number(d.playoffInicio) || 0, fim = Number(d.playoffFim) || 0;
-          if ((ini || fim) && (ini < 2 || fim <= ini || fim > cont[d.id] || ini <= direto)) erro = `Playoffs de "${d.nome}": posições inválidas. Confira início, fim e acessos diretos.`;
-          const vagas = direto + (ini && fim > ini ? 1 : 0);
-          if (vagas !== Number(F.divisoes[k - 1].rebaixam || 0)) erro = `"${d.nome}" promove ${vagas} (diretos + playoffs), mas "${F.divisoes[k - 1].nome}" rebaixa ${F.divisoes[k - 1].rebaixam}. Ajuste para combinar.`;
-        }
-      });
+      F.divisoes.forEach((d, k) => { if (!erro && k < F.divisoes.length - 1 && d.rebaixam > Math.min(cont[d.id], cont[F.divisoes[k + 1].id]) - 1) erro = `Rebaixados de "${d.nome}": no máximo ${Math.max(0, Math.min(cont[d.id], cont[F.divisoes[k + 1].id]) - 1)}.`; });
       return { erro, cont };
     }
     function montar() {
@@ -2684,11 +2248,10 @@
       c.innerHTML = `<a class="voltar" href="${liga ? '#winner-liga-' + esc(liga.id) : '#winner-ligas'}">← ${liga ? 'Liga' : 'Ligas'}</a>${wnTitulo(liga ? 'Editar liga' : 'Nova liga')}
         <section class="secao"><div class="campo"><label>Nome da liga<input type="text" id="l-nome" maxlength="40" value="${esc(F.nome)}" placeholder="Ex.: Liga Renniw"></label></div></section>
         <section class="secao"><div class="linha" style="justify-content:space-between;align-items:center"><h2>Divisões <span class="chip">${F.divisoes.length}</span></h2><button type="button" class="btn pequeno" id="l-add" ${F.divisoes.length >= 6 || !membrosLivres ? 'disabled' : ''}>+ Divisão</button></div>
-          ${F.divisoes.map((d, k) => `<div class="wn-div" data-d="${esc(d.id)}"><div class="linha" style="gap:8px;align-items:flex-end"><div class="campo" style="flex:1"><label>${k + 1}ª divisão<input type="text" data-f="nome" value="${esc(d.nome)}" maxlength="30" placeholder="Nome da divisão"></label></div>${F.divisoes.length > 1 && membrosLivres ? `<button type="button" class="btn pequeno perigo" data-del="${esc(d.id)}" aria-label="Remover divisão">✕</button>` : ''}</div>
-            <div class="campos"><div class="campo"><label>Classificação ao mata-mata pelo título<select data-f="mataTop">${[[0, 'Ninguém (campeão = líder)'], [2, 'Top 2 (final)'], [4, 'Top 4'], [8, 'Top 8'], [16, 'Top 16']].map(([v, n]) => `<option value="${v}" ${d.mataTop === v ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
-            ${k < F.divisoes.length - 1 ? `<div class="campo"><label>Descem para "${esc(F.divisoes[k + 1].nome || '…')}"<input type="number" data-f="rebaixam" min="0" max="10" value="${d.rebaixam}" inputmode="numeric"></label></div>` : ''}</div>
-            ${k > 0 ? `<div class="campos" style="margin-top:8px"><div class="campo"><label>Acessos diretos<input type="number" data-f="acessoDireto" min="0" max="10" value="${d.acessoDireto}" inputmode="numeric"></label></div><div class="campo"><label>Playoffs: começa no<input type="number" data-f="playoffInicio" min="0" max="32" value="${d.playoffInicio}" inputmode="numeric" placeholder="0 = sem playoffs"></label></div><div class="campo"><label>Playoffs: termina no<input type="number" data-f="playoffFim" min="0" max="32" value="${d.playoffFim}" inputmode="numeric" placeholder="0 = sem playoffs"></label></div></div><label class="wn-chk"><input type="checkbox" data-f="playoffIdaVolta" ${d.playoffIdaVolta ? 'checked' : ''}> Playoffs em ida e volta</label><small class="dica">O campeão dos playoffs ganha 1 vaga. A soma dos acessos precisa igualar os rebaixamentos da divisão acima.</small>` : '<small class="dica">Primeira divisão: não recebe acesso de outra divisão.</small>'}
-            <label class="wn-chk"><input type="checkbox" data-f="returno" ${d.returno ? 'checked' : ''}> Turno e returno</label>${d.mataTop ? `<label class="wn-chk"><input type="checkbox" data-f="idaVolta" ${d.idaVolta ? 'checked' : ''}> Mata-mata pelo título em ida e volta</label>` : ''}<small class="dica">${cont[d.id]} atletas${k > 0 ? ` · acesso para "${esc(F.divisoes[k - 1].nome || '…')}"` : ''}</small></div>`).join('')}</section>
+          ${F.divisoes.map((d, k) => `<div class="wn-div" data-d="${esc(d.id)}"><div class="linha" style="gap:8px;align-items:flex-end"><div class="campo" style="flex:1"><label>${k + 1}ª divisão<input type="text" data-f="nome" value="${esc(d.nome)}" maxlength="30" placeholder="Nome da divisão"></label></div>${F.divisoes.length > 2 && membrosLivres ? `<button type="button" class="btn pequeno perigo" data-del="${esc(d.id)}" aria-label="Remover divisão">✕</button>` : ''}</div>
+            <div class="campos"><div class="campo"><label>Vão ao mata-mata<select data-f="mataTop">${[[0, 'Ninguém (campeão = líder)'], [2, 'Top 2 (final)'], [4, 'Top 4'], [8, 'Top 8'], [16, 'Top 16']].map(([v, n]) => `<option value="${v}" ${d.mataTop === v ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
+            ${k < F.divisoes.length - 1 ? `<div class="campo"><label>Descem para "${esc(F.divisoes[k + 1].nome || '…')}"<input type="number" data-f="rebaixam" min="0" max="10" value="${d.rebaixam}" inputmode="numeric"></label></div>` : '<div class="campo"><small class="dica">Última divisão: os que sobem são os mesmos que descem da de cima.</small></div>'}</div>
+            <label class="wn-chk"><input type="checkbox" data-f="returno" ${d.returno ? 'checked' : ''}> Turno e returno</label>${d.mataTop ? `<label class="wn-chk"><input type="checkbox" data-f="idaVolta" ${d.idaVolta ? 'checked' : ''}> Mata-mata em ida e volta</label>` : ''}<small class="dica">${cont[d.id]} atletas${k > 0 ? ` · sobem ${F.divisoes[k - 1].rebaixam} para "${esc(F.divisoes[k - 1].nome || '…')}"` : ''}</small></div>`).join('')}</section>
         ${membrosLivres ? `<section class="secao"><div class="linha" style="justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><h2>Atletas por divisão</h2><div class="linha"><button type="button" class="btn pequeno" data-dist="ovr">Por overall</button><button type="button" class="btn pequeno" data-dist="rand">Aleatório</button></div></div>
           <div class="wn-lista-sel">${at.map(a => `<label class="wn-opt"><span>${wnFlag(a)} ${esc(wnNome(a))}</span>${wnOvrChip(wnOvr(a))}<select data-at="${esc(a.id)}" style="width:auto;min-height:34px"><option value="">fora</option>${F.divisoes.map(d => `<option value="${esc(d.id)}" ${F.atr[a.id] === d.id ? 'selected' : ''}>${esc(d.nome || '…')}</option>`).join('')}</select></label>`).join('')}</div></section>` : '<p class="dica">A temporada já começou: dá para renomear divisões e mudar as regras (valem na próxima temporada). Atletas só mudam por acesso e descenso.</p>'}
         <p class="erro" id="l-erro">${esc(erro)}</p><button type="button" class="btn primario wn-go" id="l-salvar" ${erro ? 'disabled' : ''}>${liga ? 'Salvar liga' : 'Criar liga'}</button>`;
@@ -2698,14 +2261,14 @@
     c.addEventListener('change', e => {
       const t = e.target, box = t.closest('[data-d]'), d = box && F.divisoes.find(x => x.id === box.dataset.d);
       if (t.dataset.at !== undefined) { if (t.value) F.atr[t.dataset.at] = t.value; else delete F.atr[t.dataset.at]; montar(); return; }
-      if (d && t.dataset.f) { const f = t.dataset.f; if (f === 'nome') d.nome = t.value.slice(0, 30); else if (f === 'mataTop') d.mataTop = Number(t.value); else if (f === 'rebaixam' || f === 'acessoDireto' || f === 'playoffInicio' || f === 'playoffFim') d[f] = Math.max(0, Math.min(32, Math.round(Number(t.value) || 0))); else d[f] = t.checked; montar(); }
+      if (d && t.dataset.f) { const f = t.dataset.f; if (f === 'nome') d.nome = t.value.slice(0, 30); else if (f === 'mataTop') d.mataTop = Number(t.value); else if (f === 'rebaixam') d.rebaixam = Math.max(0, Math.min(10, Math.round(Number(t.value) || 0))); else d[f] = t.checked; montar(); }
     });
     c.addEventListener('click', e => {
-      if (e.target.closest('#l-add')) { F.divisoes.push({ id: 'd' + novoId(), nome: 'Divisão ' + (F.divisoes.length + 1), rebaixam: 0, acessoDireto: 2, playoffInicio: 0, playoffFim: 0, playoffIdaVolta: false, returno: true, mataTop: 0, idaVolta: false }); F.divisoes.forEach((d, k) => { if (k === F.divisoes.length - 2) d.rebaixam = d.rebaixam || 2; }); distribuir('ovr'); montar(); return; }
+      if (e.target.closest('#l-add')) { F.divisoes.push({ id: 'd' + novoId(), nome: 'Divisão ' + (F.divisoes.length + 1), rebaixam: 0, returno: true, mataTop: 0, idaVolta: false }); F.divisoes.forEach((d, k) => { if (k === F.divisoes.length - 2) d.rebaixam = d.rebaixam || 2; }); distribuir('ovr'); montar(); return; }
       const del = e.target.closest('[data-del]'); if (del) { F.divisoes = F.divisoes.filter(d => d.id !== del.dataset.del); distribuir('ovr'); montar(); return; }
       const ds = e.target.closest('[data-dist]'); if (ds) { distribuir(ds.dataset.dist); montar(); return; }
       if (!e.target.closest('#l-salvar')) return;
-      const divs = F.divisoes.map(d => ({ id: d.id, nome: d.nome.trim(), rebaixam: d.rebaixam, acessoDireto: Number(d.acessoDireto) || 0, playoffInicio: Number(d.playoffInicio) || 0, playoffFim: Number(d.playoffFim) || 0, playoffIdaVolta: !!d.playoffIdaVolta, returno: !!d.returno, mataTop: d.mataTop, idaVolta: !!d.idaVolta, atletas: membrosLivres ? at.filter(a => F.atr[a.id] === d.id).map(a => a.id) : ((liga.divisoes.find(x => x.id === d.id) || {}).atletas || []) }));
+      const divs = F.divisoes.map(d => ({ id: d.id, nome: d.nome.trim(), rebaixam: d.rebaixam, returno: !!d.returno, mataTop: d.mataTop, idaVolta: !!d.idaVolta, atletas: membrosLivres ? at.filter(a => F.atr[a.id] === d.id).map(a => a.id) : ((liga.divisoes.find(x => x.id === d.id) || {}).atletas || []) }));
       if (wnLigaErro({ divisoes: divs })) return;
       let alvo = liga;
       WStore.update(w => {
@@ -2727,33 +2290,19 @@
     const t = wnLigaAtual(l), fim = wnLigaTerminou(l), nomeAt = i => { const a = wnAtleta(i); return a ? wnFlag(a) + ' ' + esc(wnNome(a)) : 'Atleta removido'; };
     const divNome = i => (l.divisoes.find(d => d.id === i) || {}).nome || '?';
     const prev = fim ? wnLigaMovimentos(l) : null;
-    c.innerHTML = `<a class="voltar" href="#winner-ligas">← Ligas</a>${wnTitulo(l.nome, 'Temporada ' + t.n + ' · ' + l.divisoes.length + (l.divisoes.length === 1 ? ' divisão' : ' divisões'))}
+    c.innerHTML = `<a class="voltar" href="#winner-ligas">← Ligas</a>${wnTitulo(l.nome, 'Temporada ' + t.n + ' · ' + l.divisoes.length + ' divisões')}
       <div class="linha" style="gap:8px;flex-wrap:wrap;margin-bottom:12px">${fim ? '<button type="button" class="btn primario" id="lg-cont">Continuar liga →</button>' : '<button type="button" class="btn primario" id="lg-sim">Simular temporada</button>'}<a class="btn" href="#winner-liga-editar-${esc(l.id)}">Editar</a><button type="button" class="btn perigo" id="lg-del">Excluir</button></div>
       ${fim ? `<div class="wn-campeao"><span>Fim da temporada ${t.n}</span><strong>${l.divisoes.map(d => { const cc = wnCompDe(t.comps[d.id]); return cc && cc.campeaoId ? `<div style="font-size:18px">🏆 ${esc(d.nome)}: ${nomeAt(cc.campeaoId)}</div>` : ''; }).join('')}</strong></div>
-        ${(() => { const principal = l.divisoes[0], camp = principal && wnCompDe(t.comps[principal.id]); const copas = WStore.get().torneios.filter(x => !x.liga && x.subtipo === 'copa' && x.status === 'encerrada' && x.campeaoId); return camp && camp.campeaoId && copas.length ? `<section class="secao"><h2>🏆 Supercopa</h2><p class="dica">Una o campeão da primeira divisão ao campeão da Copa Nacional para criar uma Supercopa automaticamente.</p><div class="campos"><div class="campo"><label for="lg-copa-super">Copa Nacional<select id="lg-copa-super">${copas.map(x => `<option value="${esc(x.id)}">${esc(x.nome)} · ${esc((wnAtleta(x.campeaoId) ? wnNome(wnAtleta(x.campeaoId)) : 'Campeão'))}</option>`).join('')}</select></label></div></div><button type="button" class="btn primario" id="lg-criar-super">Criar Supercopa</button></section>` : ''; })()}
         ${prev.mov.length ? `<section class="secao"><h2>O que acontece ao continuar</h2><div class="lista">${prev.mov.map(m => `<div class="item"><div class="info"><strong>${m.tipo === 'sobe' ? '⬆️' : '⬇️'} ${nomeAt(m.id)}</strong><small>${esc(divNome(m.de))} → ${esc(divNome(m.para))}</small></div></div>`).join('')}</div></section>` : '<p class="dica">Nenhuma troca de divisão nesta temporada.</p>'}` : ''}
-      ${l.divisoes.map(d => { const cc = wnCompDe(t.comps[d.id]); if (!cc) return ''; const tab = wnLigaTabela(cc), f = cc.fases[0], tb = tabelaDe(f.jogos, f.grupos[0].clubes, cc.regras), feitos = cc.fases.reduce((x, ff) => x + ff.jogos.filter(j => j.res).length, 0), tot = cc.fases.reduce((x, ff) => x + ff.jogos.length, 0), acesso = wnCompDe(t.acessos && t.acessos[d.id]); void tab;
-        const k = l.divisoes.indexOf(d), desce = k < l.divisoes.length - 1 ? d.rebaixam : 0, sobe = k > 0 ? l.divisoes[k - 1].rebaixam : 0, direto = k > 0 ? (d.acessoDireto == null ? sobe : Number(d.acessoDireto) || 0) : 0, pIni = Number(d.playoffInicio) || 0, pFim = Number(d.playoffFim) || 0;
+      ${l.divisoes.map(d => { const cc = wnCompDe(t.comps[d.id]); if (!cc) return ''; const tab = wnLigaTabela(cc), f = cc.fases[0], tb = tabelaDe(f.jogos, f.grupos[0].clubes, cc.regras), feitos = cc.fases.reduce((x, ff) => x + ff.jogos.filter(j => j.res).length, 0), tot = cc.fases.reduce((x, ff) => x + ff.jogos.length, 0); void tab;
+        const k = l.divisoes.indexOf(d), desce = k < l.divisoes.length - 1 ? d.rebaixam : 0, sobe = k > 0 ? l.divisoes[k - 1].rebaixam : 0;
         return `<section class="secao"><div class="linha" style="justify-content:space-between;align-items:center"><h2>${esc(d.nome)}</h2><a class="btn pequeno" href="#winner-torneio-${esc(cc.id)}">Abrir divisão · ${feitos}/${tot}</a></div>
-          <div class="wn-tab-wrap"><table class="wn-tab"><thead><tr><th>#</th><th>Atleta</th><th>P</th><th>J</th><th>SG</th></tr></thead><tbody>${tb.map((r, i) => `<tr class="${direto && i < direto ? 'sobe' : ''} ${wnTemPlayoffAcesso(d) && i >= pIni - 1 && i < pFim ? 'playoff' : ''} ${desce && i >= tb.length - desce ? 'desce' : ''}"><td>${i + 1}</td><td><a href="#winner-perfil-${esc(r.id)}">${nomeAt(r.id)}</a></td><td><b>${r.pts}</b></td><td>${r.j}</td><td>${r.sg}</td></tr>`).join('')}</tbody></table></div>
-          <p class="dica">${d.mataTop ? 'Top ' + d.mataTop + ' disputa o título. ' : ''}${k > 0 ? (d.acessoDireto || 0) + ' acessos diretos. ' + (wnTemPlayoffAcesso(d) ? `Playoffs do ${d.playoffInicio}º ao ${d.playoffFim}º: ` + (acesso ? `<a href="#winner-torneio-${esc(acesso.id)}">abrir chave${acesso.campeaoId ? ' · campeão: ' + nomeAt(acesso.campeaoId) : ''}</a>. ` : 'aguardando fim da fase de pontos corridos. ') : '') : ''}${sobe ? '⬆️ ' + sobe + ' sobem. ' : ''}${desce ? '⬇️ ' + desce + ' descem.' : ''}</p></section>`; }).join('')}
+          <div class="wn-tab-wrap"><table class="wn-tab"><thead><tr><th>#</th><th>Atleta</th><th>P</th><th>J</th><th>SG</th></tr></thead><tbody>${tb.map((r, i) => `<tr class="${sobe && i < sobe ? 'sobe' : ''} ${desce && i >= tb.length - desce ? 'desce' : ''}"><td>${i + 1}</td><td><a href="#winner-perfil-${esc(r.id)}">${nomeAt(r.id)}</a></td><td><b>${r.pts}</b></td><td>${r.j}</td><td>${r.sg}</td></tr>`).join('')}</tbody></table></div>
+          <p class="dica">${d.mataTop ? 'Top ' + d.mataTop + ' vai ao mata-mata. ' : ''}${sobe ? '⬆️ Os ' + sobe + ' primeiros sobem. ' : ''}${desce ? '⬇️ Os ' + desce + ' últimos descem.' : ''}</p></section>`; }).join('')}
       ${l.temporadas.filter(x => x.status === 'encerrada').length ? `<section class="secao"><h2>Temporadas anteriores</h2><div class="lista">${l.temporadas.filter(x => x.status === 'encerrada').reverse().map(x => `<div class="item"><div class="info"><strong>Temporada ${x.n}</strong><small>${l.divisoes.map(d => x.campeoes[d.id] ? esc(d.nome) + ': ' + (wnAtleta(x.campeoes[d.id]) ? esc(wnNome(wnAtleta(x.campeoes[d.id]))) : '—') : '').filter(Boolean).join(' · ')}</small>${x.mov.length ? `<small>${x.mov.map(m => (m.tipo === 'sobe' ? '⬆️ ' : '⬇️ ') + esc(m.nome)).join(' · ')}</small>` : ''}</div></div>`).join('')}</div></section>` : ''}`;
     c.addEventListener('click', async e => {
-      if (e.target.closest('#lg-criar-super')) {
-        const principal = l.divisoes[0], campLiga = principal && wnCompDe(t.comps[principal.id]);
-        const copaId = c.querySelector('#lg-copa-super')?.value;
-        const copa = WStore.get().torneios.find(x => x.id === copaId && !x.liga && x.subtipo === 'copa' && x.status === 'encerrada' && x.campeaoId);
-        if (!fim || !campLiga || !campLiga.campeaoId || !copa) { UI.toast('Finalize a liga e uma Copa Nacional para criar a Supercopa.', true); return; }
-        if (campLiga.campeaoId === copa.campeaoId) { UI.toast('O mesmo clube venceu a Liga e a Copa. Não há dois participantes diferentes para a Supercopa.', true); return; }
-        const ids = [campLiga.campeaoId, copa.campeaoId], nomes = wnNomesMapa(ids);
-        const sup = criarCompeticao({ nome: 'Supercopa · ' + l.nome, tipo: 'copa', clubes: ids, nomes, specs: [specSegura({ tipo: 'mata', nome: 'Supercopa' })] });
-        sup.winner = true; sup.subtipo = 'supercopa'; sup.formato = 'supercopa'; sup.origem = { ligaId: l.id, temporadaLiga: t.n, copaId: copa.id };
-        WStore.update(w => { w.torneios.push(sup); }); WStore.salvarAgora(); UI.toast('Supercopa criada com os campeões da Liga e da Copa!'); location.hash = 'winner-torneio-' + sup.id; return;
-      }
       if (e.target.closest('#lg-sim')) {
         l.divisoes.forEach(d => { const cc = wnCompDe(t.comps[d.id]); let g = 0; while (cc && cc.status === 'andamento' && g++ < 3000) { const js = jogosJogaveis(cc); if (!js.length) break; wnSimularJogoTorneio(cc.id, js[0].id); } });
-        wnLigaPrepararPlayoffs(l);
-        Object.values(t.acessos || {}).forEach(id => { const pc = wnCompDe(id); let g = 0; while (pc && pc.status === 'andamento' && g++ < 500) { const js = jogosJogaveis(pc); if (!js.length) break; wnSimularJogoTorneio(pc.id, js[0].id); } });
         WStore.salvarAgora(); desenhar(false); return;
       }
       if (e.target.closest('#lg-cont')) {
@@ -2776,9 +2325,10 @@
   desenhar(false);
 })();
 </script>
-
 <script>
-if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(err => console.warn('Renniw: não foi possível ativar o modo offline.', err)));
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('./sw.js').catch(function (e) { console.warn('Renniw: modo offline indisponível', e); }); });
 }
 </script>
+</body>
+</html>

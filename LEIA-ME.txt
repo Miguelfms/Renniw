@@ -1,7 +1,28 @@
-RENniw PWA
+RENNIW - APP INSTALAVEL (PWA)
 
-Esta pasta contém a versão instalável do Renniw. Publique TODOS os arquivos mantendo a estrutura de pastas em um host HTTPS (por exemplo, GitHub Pages ou Vercel). Depois abra o endereço no Chrome do Android e escolha “Instalar app” ou “Adicionar à tela inicial”.
+POR QUE "NAO CONSIGO INSTALAR"?
+Um app web so pode ser instalado quando esta publicado em um endereco https://.
+Nao instala se voce abrir o arquivo index.html direto do celular, nem de dentro de
+uma pagina do Claude (ela fica dentro de um quadro e o navegador bloqueia a instalacao).
 
-Os dados atuais continuam no armazenamento local do navegador (localStorage, chave renniw:dados). Eles não são sincronizados automaticamente entre aparelhos. Antes de limpar os dados do navegador ou trocar de aparelho, faça uma cópia/backup se o app oferecer essa função.
+COMO PUBLICAR DE GRACA (GitHub Pages)
+1. Crie uma conta em github.com e um repositorio novo (ex.: renniw), publico.
+2. Clique em "Add file > Upload files" e envie TODO o conteudo desta pasta:
+   index.html, manifest.webmanifest, sw.js e a pasta icons (com os 4 arquivos).
+   Importante: index.html tem que ficar na RAIZ do repositorio, nao dentro de outra pasta.
+3. Va em Settings > Pages > Source: "Deploy from a branch", branch main, pasta /(root). Salve.
+4. Espere 1 a 2 minutos. O endereco sera https://SEU-USUARIO.github.io/renniw/
 
-O modo offline guarda a estrutura principal do app depois da primeira visita online. Recursos externos, como fontes do Google, podem não carregar sem internet.
+ALTERNATIVA MAIS RAPIDA (Netlify)
+Entre em app.netlify.com/drop e arraste a pasta inteira. Ele devolve um endereco https://.
+
+COMO INSTALAR
+- Android (Chrome): abra o endereco https, toque nos 3 pontinhos > "Instalar app"
+  (ou "Adicionar a tela inicial"). Dentro do Renniw, aba Dados > "Instalar o app" tambem ajuda.
+- iPhone/iPad (Safari): Compartilhar > "Adicionar a Tela de Inicio".
+- Computador (Chrome/Edge): icone de instalar na barra de endereco.
+
+DADOS
+Ficam salvos no navegador do aparelho (chave renniw:dados). Nao sincronizam entre aparelhos.
+Use Dados > Exportar para fazer backup antes de trocar de aparelho ou limpar o navegador.
+Ao atualizar o app (subir um index.html novo), feche e abra o app duas vezes para ver a versao nova.
