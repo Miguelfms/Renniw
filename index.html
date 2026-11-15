@@ -332,6 +332,7 @@
   .wn-div { border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 10px 0; background: var(--surface); }
   .wn-tab tr.sobe td { background: color-mix(in srgb, #1d7a45 14%, transparent); } .wn-tab tr.desce td { background: color-mix(in srgb, var(--signal) 14%, transparent); }
   .wn-opt .ovr, .wn-ord-i .ovr { flex: none; }
+  .wn-diag { display: grid; gap: 6px; max-height: 55vh; overflow: auto; margin: 8px 0; } .wn-diag > div { padding: 6px 8px; border-radius: 6px; border: 1px solid var(--line); } .wn-diag .ok { background: color-mix(in srgb, #1d7a45 12%, transparent); } .wn-diag .ruim { background: color-mix(in srgb, var(--signal) 16%, transparent); } .wn-diag small { display: block; word-break: break-all; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -2081,6 +2082,50 @@
   const wnInstalado = () => { try { return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true; } catch (e) { return false; } };
   window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); wnPromptInstalar = e; if (/^#?(winner)?$/.test(location.hash) || /winner-dados/.test(location.hash)) desenhar(false); });
   window.addEventListener('appinstalled', () => { wnPromptInstalar = null; try { UI.toast('Renniw instalado'); } catch (e) { /* sem aviso */ } });
+  async function wnDiagnostico() {
+    const r = [], ok = (t, v, d) => r.push({ t, v, d: d == null ? '' : String(d) });
+    const ua = navigator.userAgent, cr = /Chrome\/(\d+)/.exec(ua);
+    ok('Navegador', !/; wv\)|FBAN|FBAV|Instagram|Line\/|MiuiBrowser|OPR\/|SamsungBrowser|UCBrowser|Firefox/i.test(ua) && !!cr, (cr ? 'Chrome ' + cr[1] : 'não é Chrome') + ' · ' + (/Android/i.test(ua) ? 'Android' : /iPhone|iPad/i.test(ua) ? 'iOS' : 'computador') + (/; wv\)/.test(ua) ? ' · navegador embutido (WebView)' : '') + (/SamsungBrowser|OPR\/|MiuiBrowser|UCBrowser|Firefox/i.test(ua) ? ' · outro navegador' : ''));
+    ok('Endereço seguro (https)', window.isSecureContext && (location.protocol === 'https:' || location.hostname === 'localhost'), location.origin);
+    ok('Página aberta direto (fora de quadro)', window.top === window.self);
+    ok('Modo do app', true, wnInstalado() ? 'já aberto como app instalado' : 'aberto no navegador');
+    const link = document.querySelector('link[rel="manifest"]'); ok('Página aponta para o manifest', !!link, link ? link.getAttribute('href') : 'falta <link rel="manifest">');
+    let m = null;
+    if (link) {
+      try {
+        const res = await fetch(link.href, { cache: 'no-store' }), txt = await res.text();
+        ok('Manifest abre', res.ok, res.status + ' · ' + (res.headers.get('content-type') || 'sem tipo'));
+        try { m = JSON.parse(txt); ok('Manifest é JSON válido', true); } catch (e) { ok('Manifest é JSON válido', false, 'o arquivo não é JSON (o servidor devolveu outra coisa, como a página do app)'); }
+      } catch (e) { ok('Manifest abre', false, e.message); }
+    }
+    if (m) {
+      ok('Nome do app', !!(m.name || m.short_name), m.name || m.short_name || 'sem name');
+      ok('start_url', !!m.start_url, m.start_url || 'ausente');
+      ok('display (standalone)', ['standalone', 'fullscreen', 'minimal-ui'].includes(m.display), m.display || 'ausente');
+      const ics = Array.isArray(m.icons) ? m.icons : []; let t192 = false, t512 = false;
+      for (const ic of ics) {
+        try {
+          const u = new URL(ic.src, link.href), res = await fetch(u, { cache: 'no-store' }), tp = res.headers.get('content-type') || '';
+          const good = res.ok && /image\//.test(tp); ok('Ícone ' + (ic.sizes || '') + (ic.purpose ? ' (' + ic.purpose + ')' : ''), good, res.status + ' · ' + tp + ' · ' + ic.src);
+          if (good && /png/.test(tp)) { const ss = String(ic.sizes || ''); if (/\b192x192\b/.test(ss) || /\b512x512\b/.test(ss)) { if (/192x192/.test(ss)) t192 = true; if (/512x512/.test(ss)) t512 = true; } }
+        } catch (e) { ok('Ícone ' + (ic.sizes || ''), false, ic.src + ' · ' + e.message); }
+      }
+      ok('Tem ícone PNG 192 e 512 que abrem', t192 && t512, (t192 ? '192 ok' : '192 faltando') + ' · ' + (t512 ? '512 ok' : '512 faltando'));
+    }
+    if (!('serviceWorker' in navigator)) ok('Modo offline (service worker)', false, 'o navegador não oferece');
+    else {
+      try { const res = await fetch('./sw.js', { cache: 'no-store' }); ok('Arquivo sw.js abre', res.ok && /javascript/.test(res.headers.get('content-type') || ''), res.status + ' · ' + (res.headers.get('content-type') || 'sem tipo')); } catch (e) { ok('Arquivo sw.js abre', false, e.message); }
+      try { const reg = await navigator.serviceWorker.getRegistration(); ok('Service worker ativo', !!(reg && reg.active), reg ? (reg.active ? 'ativo' : 'instalando') : 'não registrado'); ok('Página controlada pelo service worker', !!navigator.serviceWorker.controller, navigator.serviceWorker.controller ? 'sim' : 'ainda não: recarregue a página uma vez'); } catch (e) { ok('Service worker ativo', false, e.message); }
+    }
+    ok('Chrome ofereceu a instalação', !!wnPromptInstalar || wnInstalado(), wnPromptInstalar ? 'sim, botão disponível' : wnInstalado() ? 'já instalado' : 'não ofereceu (veja os itens em vermelho)');
+    return r;
+  }
+  function wnMostrarDiag(rs) {
+    const esc = UI.esc, falhas = rs.filter(x => !x.v).length;
+    const j = UI.abrir(`<h3>Verificação de instalação</h3><p>${falhas ? `<b>${falhas}</b> ponto(s) com problema:` : 'Tudo certo nos testes. Recarregue e olhe o menu do navegador.'}</p><div class="wn-diag">${rs.map(x => `<div class="${x.v ? 'ok' : 'ruim'}"><b>${x.v ? '✓' : '✗'} ${esc(x.t)}</b>${x.d ? `<small>${esc(x.d)}</small>` : ''}</div>`).join('')}</div><div class="linha"><button class="btn" id="dg-f">Fechar</button><button class="btn primario" id="dg-c">Copiar relatório</button></div>`);
+    j.querySelector('#dg-f').addEventListener('click', UI.fechar);
+    j.querySelector('#dg-c').addEventListener('click', async () => { const t = rs.map(x => (x.v ? '[ok] ' : '[FALHA] ') + x.t + (x.d ? ' - ' + x.d : '')).join('\n'); try { await navigator.clipboard.writeText(t); UI.toast('Relatório copiado'); } catch (e) { UI.toast('Não consegui copiar', true); } });
+  }
   function wnInstalarHtml() {
     const web = /^https?:$/.test(location.protocol), seguro = window.isSecureContext, ios = /iphone|ipad|ipod/i.test(navigator.userAgent), inst = wnInstalado();
     let corpo;
@@ -2090,7 +2135,7 @@
     else if (!seguro) corpo = '<p class="erro">Este endereço não é seguro (http). A instalação só funciona em <b>https://</b>.</p>';
     else if (ios) corpo = '<p>No iPhone/iPad, use o <b>Safari</b>: toque em <b>Compartilhar</b> (quadrado com seta) e depois em <b>Adicionar à Tela de Início</b>.</p>';
     else corpo = '<p>No Chrome do Android: toque nos <b>três pontinhos ⋮</b> e escolha <b>Instalar app</b> (ou <b>Adicionar à tela inicial</b>). No computador, use o ícone de instalar na barra de endereço. Se a opção não aparecer, navegue um pouco pelo app e tente de novo.</p>';
-    return `<section class="secao"><h2>Instalar o app</h2>${corpo}</section>`;
+    return `<section class="secao"><h2>Instalar o app</h2>${corpo}${inst ? '' : '<div class="linha" style="margin-top:8px"><button type="button" class="btn" id="d-diag">Verificar instalação</button></div>'}</section>`;
   }
   function wnDados(c) {
     const W = WStore.get();
@@ -2100,6 +2145,7 @@
       ${wnInstalarHtml()}
       <section class="secao"><h2>Ajustes</h2><div class="campo"><label>Fator sorte padrão<select id="d-sorte">${[['baixa', 'Baixa'], ['media', 'Média'], ['alta', 'Alta']].map(([k, v]) => `<option value="${k}" ${W.cfg.sorte === k ? 'selected' : ''}>${v}</option>`).join('')}</select></label></div></section>
       <section class="secao"><h2>Zona de risco</h2><p class="dica">Apaga todos os atletas, partidas e torneios.</p><button type="button" class="btn perigo" id="d-del">Apagar dados do Renniw</button></section>`;
+    const bd = c.querySelector('#d-diag'); if (bd) bd.addEventListener('click', async () => { bd.disabled = true; bd.textContent = 'Verificando…'; try { wnMostrarDiag(await wnDiagnostico()); } catch (e) { UI.toast('Falha na verificação: ' + e.message, true); } bd.disabled = false; bd.textContent = 'Verificar instalação'; });
     const bi = c.querySelector('#d-inst'); if (bi) bi.addEventListener('click', async () => { const e = wnPromptInstalar; if (!e) return; wnPromptInstalar = null; try { await e.prompt(); await e.userChoice; } catch (err) { /* cancelado */ } desenhar(false); });
     c.querySelector('#d-sorte').addEventListener('change', e => { WStore.update(w => { w.cfg.sorte = e.target.value; }); UI.toast('Salvo'); });
     c.querySelector('#d-exp').addEventListener('click', () => wnExportar(WStore.exportarJSON(), 'renniw-' + new Date().toISOString().slice(0, 10) + '.json'));
